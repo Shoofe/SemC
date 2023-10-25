@@ -6,13 +6,19 @@ var focused = false
 var curr_text = ""
 
 @onready var display  = $Display/SubViewport/Display
-@onready var camera_position_on_focus = $FocusCamPosition.transform
+
+
 func _ready():
-	disable_movement_on_interact = true
+	disable_movement = true
+	focus_camera = true
+	stay_focused = true
+	focus_camera_position = $FocusCamPosition
 
 
 func _on_interacted():
-		focused = !focused
+		focused = true
+func _on_stop_interaction():
+	focused = false
 
 func _input(event):
 	if focused and event is InputEventKey and event.is_pressed():

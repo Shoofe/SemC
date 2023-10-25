@@ -14,6 +14,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.46308, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
+[node name="DefaultCameraPosition" type="Node3D" parent="Head"]
+
 [node name="RayCast3D" type="RayCast3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0259218, 0)
 target_position = Vector3(0, 0, -1.5)
