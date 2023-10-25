@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=3 uid="uid://cfjy1vye6rdf6"]
+
+[ext_resource type="Material" uid="uid://c6v0a2map5ewl" path="res://Computer/Station/Materials/FlatscreenMonitorMaterial.tres" id="1_jm5bx"]
+[ext_resource type="Script" path="res://Computer/Station/Flatscreen/flatscreen_monitor.gd" id="1_y1a4r"]
+[ext_resource type="PackedScene" uid="uid://brrw7lw5xbwuu" path="res://Computer/Station/Flatscreen/screen.tscn" id="3_yh8pu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_skdfd"]
+material = ExtResource("1_jm5bx")
+
+[sub_resource type="BoxMesh" id="BoxMesh_feeff"]
+material = ExtResource("1_jm5bx")
+
+[sub_resource type="BoxMesh" id="BoxMesh_rvua5"]
+material = ExtResource("1_jm5bx")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8k14q"]
+size = Vector3(0.249217, 0.938148, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ltr3v"]
+viewport_path = NodePath("Display/SubViewport")
+
+[node name="FlatscreenMonitor" type="StaticBody3D"]
+script = ExtResource("1_y1a4r")
+
+[node name="Screen" type="Node3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.3, 0.302, 0)
+
+[node name="3DMeshInstance" type="MeshInstance3D" parent="Screen"]
+transform = Transform3D(0.0654866, 0, 0, 0, 1.11843, 0, 0, 0, 1.25767, 0.00455666, 0.283956, 0)
+mesh = SubResource("BoxMesh_skdfd")
+skeleton = NodePath("../..")
+
+[node name="Stand" type="Node3D" parent="."]
+transform = Transform3D(2.65618, 1.39453, 0, -1.39453, 2.65618, 0, 0, 0, 3, -0.246253, 0.331885, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Stand"]
+transform = Transform3D(0.0700923, -0.0168643, 0, 0.00443071, 0.266788, 0, 0, 0, 0.344779, -0.0487421, 0.30293, 0)
+mesh = SubResource("BoxMesh_feeff")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Stand"]
+transform = Transform3D(0.0569229, 0.169072, 0, -0.0168116, 0.572466, 0, 0, 0, 0.159689, -0.120495, 0.0712976, 0)
+mesh = SubResource("BoxMesh_feeff")
+
+[node name="Platform" type="Node3D" parent="."]
+transform = Transform3D(-0.0412061, 2.99972, 0, -2.99972, -0.0412061, 0, 0, 0, 3, -0.354638, 0.0747412, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform"]
+transform = Transform3D(0.323474, 0, 0, 0, 0.0673552, 0, 0, 0, 0.69326, -0.126478, -0.237871, 0)
+mesh = SubResource("BoxMesh_rvua5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Platform"]
+transform = Transform3D(0.0833411, 0, 0.3444, 0, 0.0673552, 0, -0.144351, 0, 0.19884, 0.119, -0.238, 0.348)
+mesh = SubResource("BoxMesh_rvua5")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Platform"]
+transform = Transform3D(0.0833411, 0, -0.3444, 0, 0.0673552, 0, 0.144351, 0, 0.19884, 0.147, -0.238, -0.348)
+mesh = SubResource("BoxMesh_rvua5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.617033, 0)
+shape = SubResource("BoxShape3D_8k14q")
+
+[node name="Display" type="Sprite3D" parent="."]
+transform = Transform3D(-6.55671e-09, 0, 0.15, 0, 0.15, 0, -0.15, 0, -6.55671e-09, 0.416276, 1.12897, -2.236e-08)
+texture = SubResource("ViewportTexture_ltr3v")
+
+[node name="SubViewport" type="SubViewport" parent="Display"]
+size = Vector2i(2100, 2100)
+
+[node name="Screen" parent="Display/SubViewport" instance=ExtResource("3_yh8pu")]

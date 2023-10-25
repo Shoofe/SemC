@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://qayfh82tdfj7"]
+
+[ext_resource type="PackedScene" uid="uid://i6ex30grw0hx" path="res://Player/player.tscn" id="1_o1yvq"]
+[ext_resource type="PackedScene" uid="uid://cy7hybgkeu8e0" path="res://Computer/Station/Terminal/terminal.tscn" id="2_qrkgy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kxwdm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vx5jk"]
+size = Vector3(16, 0.5, 16)
+
+[node name="TestWorld" type="Node3D"]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(15.91, 0, 0, 0, 0.3, 0, 0, 0, 16.17, 0, 0, 0)
+mesh = SubResource("BoxMesh_kxwdm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.115107, 0)
+shape = SubResource("BoxShape3D_vx5jk")
+
+[node name="Player" parent="." instance=ExtResource("1_o1yvq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14617, 0.134893, 0.985535)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.772125, -0.58293, -0.253012, 0.431332, 0.188372, 0.882309, -0.466665, -0.790385, 0.396883, -17.8896, 4.50864, 0)
+
+[node name="TerminalScreen" parent="." groups=["Interactable"] instance=ExtResource("2_qrkgy")]
+transform = Transform3D(0.079596, 0, -0.493624, 0, 0.5, 0, 0.493624, 0, 0.079596, -0.04081, 1.69742, -1.08022)
+
+[connection signal="terminal_focus" from="Player" to="TerminalScreen" method="_on_interacted"]
