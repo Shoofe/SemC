@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://qayfh82tdfj7"]
+[gd_scene load_steps=4 format=3 uid="uid://qayfh82tdfj7"]
 
 [ext_resource type="PackedScene" uid="uid://i6ex30grw0hx" path="res://Player/player.tscn" id="1_o1yvq"]
-[ext_resource type="PackedScene" uid="uid://cy7hybgkeu8e0" path="res://Computer/Station/Terminal/terminal.tscn" id="2_qrkgy"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_kxwdm"]
 
@@ -25,6 +24,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14617, 0.134893, 0.985535)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.772125, -0.58293, -0.253012, 0.431332, 0.188372, 0.882309, -0.466665, -0.790385, 0.396883, -17.8896, 4.50864, 0)
-
-[node name="TerminalScreen" parent="." groups=["Interactable"] instance=ExtResource("2_qrkgy")]
-transform = Transform3D(0.139554, 0, -0.48013, 0, 0.5, 0, 0.48013, 0, 0.139554, -0.734947, 1.76062, -1.99774)

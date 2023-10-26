@@ -1,6 +1,5 @@
 extends CharacterBody3D
 
-signal terminal_focus
 
 const SPEED = 1.5
 const SPRINT_MUL = 1.5
@@ -9,7 +8,7 @@ var sprint = 1
 var acceleration = 0.25
 var gravity = 15
 var moveable = true
-
+var lock_mouse = false
 #Mouse vars
 var mouse_sensitivity = 0.2
 var mouse_relative_x = 0
@@ -61,7 +60,7 @@ func handle_movement(delta):
 	move_and_slide()
 
 func _input(event):
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and !lock_mouse:
 		rotation.y -= event.relative.x * mouse_sensitivity / MOUSE_SENS_CONST
 		head.rotation.x -= event.relative.y * mouse_sensitivity / MOUSE_SENS_CONST
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-90), deg_to_rad(90))
@@ -75,10 +74,12 @@ func handle_interactions():
 			if current_target.disable_movement: moveable = false
 			if current_target.focus_camera:
 				camera_target = current_target.focus_camera_position
+			if current_target.disable_mouse: lock_mouse = true
 	
 	if current_target != null and ((Input.is_action_just_released("MOUSE1") and 
 	!current_target.stay_focused) or Input.is_action_just_released(current_target.unfocus_key)):
 		moveable = true
+		lock_mouse = false
 		camera_target = default_camera_pos
 		current_target.stop_interaction()
 		current_target = null

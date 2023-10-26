@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bimuao1dd3p8p"]
+
+[ext_resource type="Script" path="res://Computer/lever.gd" id="1_ilpbe"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_k36hp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ejkwd"]
+size = Vector3(0.214342, 0.0877513, 0.464672)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2qnov"]
+
+[node name="Lever" type="StaticBody3D"]
+script = ExtResource("1_ilpbe")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.20119, 0, 0, 0, 0.0629163, 0, 0, 0, 0.455184, 0, 0, 0)
+mesh = SubResource("BoxMesh_k36hp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_ejkwd")
+
+[node name="Lever" type="Node3D" parent="."]
+transform = Transform3D(0.07, 0, 0, 0, 0.0410424, 0.0563816, 0, -0.112763, 0.0205212, 0, 0, 0)
+
+[node name="Lever" type="MeshInstance3D" parent="Lever"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.49012e-08, 0, -5.96046e-08, 1, 0, 1.01893, 2.98023e-08)
+mesh = SubResource("CylinderMesh_2qnov")
+skeleton = NodePath("../..")

@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://chtvbete705mt"]
+
+[ext_resource type="Script" path="res://Computer/Switch.gd" id="1_2ttmd"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_b1pft"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_av2d1"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jsrmo"]
+
+[node name="Switch" type="StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("1_2ttmd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.101728, 0, 0, 0, 0.0416871, 0, 0, 0, 0.054438, 0, 0, 0)
+mesh = SubResource("BoxMesh_b1pft")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.17, 0, 0, 0, 0.17, 0, 0, 0, 0.17, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_av2d1")
+
+[node name="Lever" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Lever"]
+transform = Transform3D(0.0247373, 0, 0, 0, 0.0266717, 0, 0, 0, 0.0197403, 0.01, 0.029, 0)
+mesh = SubResource("BoxMesh_jsrmo")
