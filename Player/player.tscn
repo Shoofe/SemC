@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://Player/player.gd" id="1_a24gg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ssckq"]
+radius = 0.25
+height = 1.8
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f2soe"]
 
@@ -10,7 +12,7 @@
 script = ExtResource("1_a24gg")
 
 [node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.46308, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66881, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
@@ -19,12 +21,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.46308, 0)
 [node name="RayCast3D" type="RayCast3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0259218, 0)
 target_position = Vector3(0, 0, -1.8)
+collision_mask = 3
 
 [node name="Hand" type="Node3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18863, -0.987974)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00105, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_ssckq")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

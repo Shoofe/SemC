@@ -1,13 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://bimuao1dd3p8p"]
+[gd_scene load_steps=7 format=3 uid="uid://bimuao1dd3p8p"]
 
 [ext_resource type="Script" path="res://Computer/lever.gd" id="1_ilpbe"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jo1yt"]
+albedo_color = Color(0.239216, 0.239216, 0.239216, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_k36hp"]
+material = SubResource("StandardMaterial3D_jo1yt")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ejkwd"]
 size = Vector3(0.214342, 0.0877513, 0.464672)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mgd7l"]
+albedo_color = Color(0.541176, 0, 0.133333, 1)
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_2qnov"]
+material = SubResource("StandardMaterial3D_mgd7l")
 
 [node name="Lever" type="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)

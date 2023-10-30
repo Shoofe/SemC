@@ -28,5 +28,5 @@ func _physics_process(_delta):
 	lever.rotation.x = lerp(lever.rotation.x, lever_target, 0.1)
 
 func _on_state_changed():
-	var amount = int((rad_to_deg(lever.rotation.x) + 71) / 1.4) #Botch
+	var amount = int((rad_to_deg(lever_target) + 71) / 1.4) #Botch
 	emit_signal("state_changed", amount)
