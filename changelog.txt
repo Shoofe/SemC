@@ -12,6 +12,7 @@ Added throwables.
 30.10.23.
 Added walls and doors
 Fixed throwable colisions with player during interaction
+Github compat fix lol lmao lol
 
 26.10.23. TODO: Fix player position during locked camera interactions
 30.10.23. TODO: Fix held items not coliding with the world
