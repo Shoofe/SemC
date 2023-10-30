@@ -1,5 +1,5 @@
-extends StaticBody3D
-class_name InteractableStatic
+extends RigidBody3D
+class_name InteractableRigid
 
 
 var disable_movement = false

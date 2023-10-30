@@ -6,9 +6,12 @@ const SPRINT_MUL = 1.5
 const MOUSE_SENS_CONST = 100
 var sprint = 1
 var acceleration = 0.25
-var gravity = 15
+var throw_strength = 20
+var gravity = 9.8
 var moveable = true
 var lock_mouse = false
+var hold_item = false
+
 #Mouse vars
 var mouse_sensitivity = 0.2
 var mouse_relative_x = 0
@@ -23,6 +26,7 @@ var zoom_increment = 2
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 @onready var default_camera_pos = $Head/DefaultCameraPosition
+@onready var hand = $Head/Hand
 var camera_target
 @onready var raycast = $Head/RayCast3D
 
@@ -31,7 +35,7 @@ func _ready():
 	default_fov = camera.fov
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
-var current_target : Interactable = null
+var current_target = null
 
 func _physics_process(delta):
 	handle_movement(delta)
@@ -40,7 +44,11 @@ func _physics_process(delta):
 
 func handle_movement(delta):
 	camera.global_position = lerp(camera.global_position, camera_target.global_position, 0.2)
-		
+	if current_target != null and hold_item:
+		current_target.global_position = lerp(current_target.global_position, hand.global_position, 0.2)
+	
+	
+	
 	if Input.is_action_pressed("SHIFT"):
 		sprint = SPRINT_MUL
 	else:
@@ -59,7 +67,25 @@ func handle_movement(delta):
 		velocity.z = move_toward(velocity.z, 0, SPEED * sprint)
 	move_and_slide()
 
+var item_far = -2.0
+var item_near = -1.0
+var item_increment = 0.1
+
 func _input(event):
+	if Input.is_action_just_pressed("MOUSE2") and hold_item:
+		current_target.stop_interaction()
+		current_target.apply_impulse((hand.global_position - camera.global_position).normalized() * throw_strength)
+		hold_item = false
+		current_target = null
+	
+	if Input.is_action_just_released("MS_WHEEL_UP"):
+		hand.transform.origin.z -= item_increment
+		
+	if Input.is_action_just_released("MS_WHEEL_DOWN"):
+		hand.transform.origin.z += item_increment
+	
+	hand.transform.origin.z = clamp(hand.transform.origin.z, item_far, item_near)
+	
 	if event is InputEventMouseMotion and !lock_mouse:
 		rotation.y -= event.relative.x * mouse_sensitivity / MOUSE_SENS_CONST
 		head.rotation.x -= event.relative.y * mouse_sensitivity / MOUSE_SENS_CONST
@@ -67,7 +93,7 @@ func _input(event):
 
 func handle_interactions():
 	if Input.is_action_just_pressed("MOUSE1"):
-		if raycast.get_collider() is Interactable:
+		if raycast.get_collider() is InteractableStatic:
 			current_target = raycast.get_collider()
 			current_target.interact()
 			
@@ -75,11 +101,16 @@ func handle_interactions():
 			if current_target.focus_camera:
 				camera_target = current_target.focus_camera_position
 			if current_target.disable_mouse: lock_mouse = true
-	
+		if raycast.get_collider() is InteractableRigid:
+			current_target = raycast.get_collider()
+			current_target.interact()
+			hold_item = true
 	if current_target != null and ((Input.is_action_just_released("MOUSE1") and 
 	!current_target.stay_focused) or Input.is_action_just_released(current_target.unfocus_key)):
+		current_target.stop_interaction()
+		hold_item = false
 		moveable = true
 		lock_mouse = false
 		camera_target = default_camera_pos
-		current_target.stop_interaction()
 		current_target = null
+	#print(current_target)

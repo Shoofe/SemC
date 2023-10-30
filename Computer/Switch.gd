@@ -1,4 +1,4 @@
-extends Interactable
+extends InteractableStatic
 class_name Switch
 
 signal switched(state: bool)

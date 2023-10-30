@@ -1,4 +1,4 @@
-extends Interactable
+extends InteractableStatic
 class_name Terminal
 
 signal send_command(command: String)

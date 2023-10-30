@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://qayfh82tdfj7"]
+
+[ext_resource type="PackedScene" uid="uid://i6ex30grw0hx" path="res://Player/player.tscn" id="1_o1yvq"]
+[ext_resource type="PackedScene" uid="uid://ced5pa85yno3j" path="res://Computer/item.tscn" id="2_nt4sq"]
+[ext_resource type="PackedScene" uid="uid://bimuao1dd3p8p" path="res://Computer/lever.tscn" id="3_xhkt5"]
+[ext_resource type="PackedScene" uid="uid://chtvbete705mt" path="res://Computer/Switch.tscn" id="4_spkew"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kxwdm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vx5jk"]
+size = Vector3(16, 0.5, 16)
+
+[node name="TestWorld" type="Node3D"]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(15.91, 0, 0, 0, 0.3, 0, 0, 0, 16.17, 0, 0, 0)
+mesh = SubResource("BoxMesh_kxwdm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.115107, 0)
+shape = SubResource("BoxShape3D_vx5jk")
+
+[node name="Player" parent="." instance=ExtResource("1_o1yvq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14617, 0.134893, 0.985535)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.998821, -0.0167625, -0.0455681, 0.0195466, -0.720281, 0.693407, -0.0444451, -0.69348, -0.719104, -17.8896, 4.50864, 0)
+light_color = Color(0.780392, 0.47451, 0.482353, 1)
+light_energy = 0.543
+
+[node name="Item" parent="." instance=ExtResource("2_nt4sq")]
+
+[node name="Lever" parent="." instance=ExtResource("3_xhkt5")]
+transform = Transform3D(-0.224577, 0.974456, 0, 4.25949e-08, 9.81657e-09, -1, -0.974456, -0.224577, -4.37114e-08, -4.32304, 1.762, 2.01367)
+
+[node name="Switch" parent="." instance=ExtResource("4_spkew")]
+transform = Transform3D(-4.37114e-08, 0.5323, 0.846556, -1, -2.32676e-08, -3.70041e-08, 0, -0.846556, 0.5323, -4.95548, 1.65597, 3.2468)
