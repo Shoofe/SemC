@@ -1,0 +1,15 @@
+25.10.23.
+Init
+Added player and placeholder computer
+
+26.10.23.
+Interactables.
+Refined interactions.
+
+30.10.23.
+Added throwables.
+
+
+
+26.10.23. TODO: Fix player position during locked camera interactions
+30.10.23. TODO: Fix throwable colisions with player during interaction
