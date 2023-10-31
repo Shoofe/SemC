@@ -11,6 +11,7 @@ var gravity = 9.8
 var moveable = true
 var lock_mouse = false
 var hold_item = false
+var jump_stregth = 3
 
 #Mouse vars
 var mouse_sensitivity = 0.2
@@ -44,8 +45,9 @@ func _physics_process(delta):
 
 func handle_movement(delta):
 	camera.global_position = lerp(camera.global_position, camera_target.global_position, 0.2)
+	
 	if current_target != null and hold_item:
-		current_target.global_position = lerp(current_target.global_position, hand.global_position, 0.2)
+		current_target.held(hand.global_position)
 	
 	
 	
@@ -53,7 +55,10 @@ func handle_movement(delta):
 		sprint = SPRINT_MUL
 	else:
 		sprint = 1
-		
+	
+	if Input.is_action_just_pressed("SPACE"):
+		velocity.y = jump_stregth
+	
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
