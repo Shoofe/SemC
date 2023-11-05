@@ -1,12 +1,12 @@
 extends CharacterBody3D
 
 
-const SPEED = 1.5
+const SPEED = 3
 const SPRINT_MUL = 1.5
 const MOUSE_SENS_CONST = 100
 var sprint = 1
 var acceleration = 0.25
-var throw_strength = 3
+var throw_strength = 10
 var gravity = 9.8
 var moveable = true
 var lock_mouse = false
@@ -28,8 +28,8 @@ var zoom_increment = 2
 @onready var camera = $Head/Camera3D
 @onready var default_camera_pos = $Head/DefaultCameraPosition
 @onready var hand = $Head/Hand
-var camera_target
 @onready var raycast = $Head/RayCast3D
+var camera_target
 
 func _ready():
 	camera_target = default_camera_pos
@@ -56,7 +56,7 @@ func handle_movement(delta):
 	else:
 		sprint = 1
 	
-	if Input.is_action_just_pressed("SPACE"):
+	if Input.is_action_just_pressed("SPACE") and is_on_floor():
 		velocity.y = jump_stregth
 	
 	if not is_on_floor():
@@ -77,6 +77,14 @@ var item_near = -1.0
 var item_increment = 0.1
 
 func _input(event):
+	if Input.is_action_just_pressed("F"):
+		Global.freeze_switch()
+		if current_target != null:
+			current_target.stop_interaction()
+			hold_item = false
+			current_target = null
+	
+	
 	if Input.is_action_just_pressed("MOUSE2") and hold_item:
 		current_target.stop_interaction()
 		current_target.apply_impulse((hand.global_position - camera.global_position).normalized() * throw_strength)
@@ -106,7 +114,7 @@ func handle_interactions():
 			if current_target.focus_camera:
 				camera_target = current_target.focus_camera_position
 			if current_target.disable_mouse: lock_mouse = true
-		if raycast.get_collider() is InteractableRigid:
+		if raycast.get_collider() is InteractableRigid and !raycast.get_collider().freeze:
 			current_target = raycast.get_collider()
 			current_target.interact()
 			hold_item = true

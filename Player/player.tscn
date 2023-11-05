@@ -24,12 +24,7 @@ target_position = Vector3(0, 0, -1.8)
 collision_mask = 3
 
 [node name="Hand" type="Node3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18863, -0.987974)
-
-[node name="SpotLight3D" type="SpotLight3D" parent="Head"]
-light_energy = 1.457
-light_volumetric_fog_energy = 0.0
-spot_angle = 19.3965
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.988)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

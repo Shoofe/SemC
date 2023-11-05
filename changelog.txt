@@ -14,5 +14,15 @@ Added walls and doors
 Fixed throwable colisions with player during interaction
 Github compat fix lol lmao lol
 
+31.10.23. 
+Fixed held items not coliding with the world
+Cleaned up the filesystem and code
+
+5.11.23.
+Fixed player infite jumping (lmao)
+Added time stop mechanic
+
 26.10.23. TODO: Fix player position during locked camera interactions
-30.10.23. TODO: Fix held items not coliding with the world
+31.10.23. TODO: Make computer system controler handler
+	  TODO: Make assets
+

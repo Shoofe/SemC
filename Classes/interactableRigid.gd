@@ -18,9 +18,22 @@ var disable_mouse = false
 var focus_camera_position : Node3D = null
 #The position where the camera is when focused
 
+var force = Vector3.ZERO
+var last_frame_freeze = false
+
+func _process(delta):
+	freeze = Global.freeze
+	if freeze and !last_frame_freeze:
+		force = linear_velocity
+		last_frame_freeze = true
+	if !freeze and last_frame_freeze:
+		linear_velocity = force
+		last_frame_freeze = false
+		
 
 func interact():
-	_on_interacted()
+	if !Global.freeze:
+		_on_interacted()
 
 func stop_interaction():
 	_on_stop_interaction()
