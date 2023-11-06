@@ -7,6 +7,8 @@ var state_opened = Vector3(0,2.25,0)
 
 
 func _physics_process(delta):
+	if Global.frozen:
+		delta = 0
 	if opened:
 		self.transform.origin = self.transform.origin.lerp(state_opened, 1 * delta)
 	else:

@@ -1,7 +1,9 @@
 extends Node
 
+#Global variables and gamestates
 
-var freeze = false
+var frozen = false
+var gravity = 9.8
 
 func freeze_switch():
-	freeze = !freeze
+	frozen = !frozen

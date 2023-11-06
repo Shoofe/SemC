@@ -22,7 +22,7 @@ var force = Vector3.ZERO
 var last_frame_freeze = false
 
 func _process(delta):
-	freeze = Global.freeze
+	freeze = Global.frozen
 	if freeze and !last_frame_freeze:
 		force = linear_velocity
 		last_frame_freeze = true
@@ -32,7 +32,7 @@ func _process(delta):
 		
 
 func interact():
-	if !Global.freeze:
+	if !Global.frozen:
 		_on_interacted()
 
 func stop_interaction():
