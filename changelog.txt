@@ -25,7 +25,16 @@ Added time stop mechanic
 6.11.23.
 Code fixup and cleanup
 
-26.10.23. TODO: Fix player position during locked camera interactions
-31.10.23. TODO: Make computer system controler handler
-	  TODO: Make assets
+8.11.23.
+Added time rewind to all RigidBody3Ds - Maybe add them to the doors and platforms too? (Creative decision?)
+Broke time stop with the rewind script. Shouldn't be too hard to re-implement.
+
+FIX:
+Fix player position during locked camera interactions
+Fix time stop broken at 8.11.23. with the rewind.
+
+TODO: 
+Make computer system hub
+Make assets
+
 
