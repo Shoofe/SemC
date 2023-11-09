@@ -82,14 +82,23 @@ func handle_movement(delta):
 
 func _input(event):
 	#Time freeze logic.
-	if Input.is_action_just_pressed("F"):
-		Global.freeze()
-		if current_target != null:
-			stop_interaction()
-	if Input.is_action_just_pressed("R"):
-		Global.rewind()
-		if current_target != null:
-			stop_interaction()
+	if Global.rewind_state >= 1:
+		if Input.is_action_just_pressed("F"):
+			Global.freeze()
+			if current_target != null:
+				stop_interaction()
+		if Input.is_action_just_pressed("R"):
+			Global.rewind()
+			if current_target != null:
+				stop_interaction()
+		if Input.is_action_just_pressed("T"):
+			Global.play()
+			if current_target != null:
+				stop_interaction()
+		if Input.is_action_just_pressed("G"):
+			Global.exit()
+			if current_target != null:
+				stop_interaction()
 	#Throw on MOUSE2.
 	if Input.is_action_just_pressed("MOUSE2") and hold_item:
 		current_target.stop_interaction()
@@ -121,7 +130,7 @@ func handle_interactions():
 			lock_mouse = current_target.disable_mouse
 			if current_target.focus_camera: camera_target = current_target.focus_camera_position
 		#Case if Interactable is RigidBody
-		if raycast.get_collider() is InteractableRigid and !Global.frozen:
+		if raycast.get_collider() is InteractableRigid:
 			current_target = raycast.get_collider()
 			current_target.interact()
 			hold_item = true

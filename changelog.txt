@@ -29,12 +29,15 @@ Code fixup and cleanup
 Added time rewind to all RigidBody3Ds - Maybe add them to the doors and platforms too? (Creative decision?)
 Broke time stop with the rewind script. Shouldn't be too hard to re-implement.
 
+9.11.23.
+Fixed broken time stop and rewind. (was hard)
+Some bugfixes..
+
 FIX:
 Fix player position during locked camera interactions
-Fix time stop broken at 8.11.23. with the rewind.
+
 
 TODO: 
-Make computer system hub
 Make assets
 
 

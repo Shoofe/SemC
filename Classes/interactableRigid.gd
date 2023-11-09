@@ -24,30 +24,87 @@ var rewind_values: Dictionary = {
 	"velocity":[]
 }
 
-#TODO: Implement freeze with rewind
-func _physics_process(delta):
-	if not Global.rewinding and not Global.frozen:
-		if Global.rewind_seconds * Engine.physics_ticks_per_second == rewind_values["position"].size():
-			for key in rewind_values.keys():
-				rewind_values[key].pop_front()
-		rewind_values["position"].append(global_position)
-		rewind_values["rotation"].append(rotation)
-		rewind_values["velocity"].append(linear_velocity)
-	elif Global.rewinding:
-		compute_rewind(delta)
+var max_array_size = Global.rewind_seconds * Engine.physics_ticks_per_second
+var current_tick_offset = 0
 
-func compute_rewind(tick: float):
-	var pos = rewind_values["position"].pop_back()
-	var rot = rewind_values["rotation"].pop_back()
-	if rewind_values["position"].is_empty() or not Global.rewinding:
-		global_position = pos
-		global_rotation = rot
-		linear_velocity = rewind_values["velocity"][0]
-		Global.rewinding = false
-		return
-	global_position = pos
-	global_rotation = rot
+var frozen_last_frame = false
+
+
+
+#TODO: Implement freeze with rewind
+@warning_ignore("unused_parameter")
+func _physics_process(delta):
+	Global.rewind_state = (rewind_values["position"].size()) / (max_array_size - 1)
+	#Each tick record values of the object into an array untill max_array_size if
+	#the games not in state Frozen or Rewind
 	
+	
+	if Global.exiting and not Global.playing:
+		print("Exiting")
+		Global.play()
+		linear_velocity = Vector3.ZERO
+		apply_impulse(rewind_values["velocity"][max_array_size - current_tick_offset - 1])
+		freeze = false
+		frozen_last_frame = false
+		Global.exiting = false
+		current_tick_offset = 0
+		for key in rewind_values:
+			rewind_values[key].clear()
+	
+	if rewind_values["position"].size() == max_array_size:
+		for key in rewind_values:
+			rewind_values[key].pop_front()
+	if not Global.frozen and not Global.rewinding and current_tick_offset == 0:
+		rewind_values["position"].append(global_position)
+		rewind_values["rotation"].append(global_rotation)
+		rewind_values["velocity"].append(linear_velocity)
+	
+	#If we just froze, freeze the object. 
+	if Global.frozen and not frozen_last_frame:
+		freeze = true
+		frozen_last_frame = true
+	
+	#If we just unfroze, unfreeze the object and apply the last recorded velocity at max_array_size
+	if not Global.frozen and frozen_last_frame and current_tick_offset == 0:
+		freeze = false
+		frozen_last_frame = false
+		linear_velocity = Vector3.ZERO
+		apply_impulse(rewind_values["velocity"][max_array_size - 1])
+	
+	#If the current frame offset is > 0, then we have to replay the motion we rewound
+	if not Global.rewinding and not Global.frozen and current_tick_offset != 0:
+		replay()
+	
+	#if we're rewinding, we just have to play the recorded motions backwards.
+	if Global.rewinding:
+		rewind()
+
+
+
+
+func rewind():
+	#To rewind we just move the object to the recorded position from rewind_values, offset by the frame
+	current_tick_offset += 1
+	if current_tick_offset == max_array_size:
+		#If we rewound to the beginning of the recording
+		Global.freeze()
+		frozen_last_frame = true
+		return
+	print(max_array_size, " ", rewind_values["position"].size())
+	global_position = rewind_values["position"][max_array_size - current_tick_offset - 1]
+	global_rotation = rewind_values["rotation"][max_array_size - current_tick_offset - 1]
+	
+
+func replay():
+	current_tick_offset -= 1
+	if current_tick_offset == 0:
+		#If we rewound to the beginning of the recording
+		Global.play()
+		#Flush all
+		frozen_last_frame = false
+		return
+	global_position = rewind_values["position"][max_array_size - current_tick_offset - 1]
+	global_rotation = rewind_values["rotation"][max_array_size - current_tick_offset - 1]
 
 func interact():
 	_on_interacted()
