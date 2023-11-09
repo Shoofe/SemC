@@ -82,7 +82,7 @@ func handle_movement(delta):
 
 func _input(event):
 	#Time freeze logic.
-	if Global.rewind_state >= 1:
+	if Global.rewind_state:
 		if Input.is_action_just_pressed("F"):
 			Global.freeze()
 			if current_target != null:
