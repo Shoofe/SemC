@@ -20,7 +20,7 @@ var throw_strength = 10
 
 var current_target = null
 var item_far = -2.0
-var item_near = -1.0
+var item_near = -1.5
 var item_increment = 0.1
 
 #Mouse vars
@@ -53,6 +53,7 @@ func _physics_process(delta):
 func handle_movement(delta):
 	#Keeps camera in position. Allows for camera movement.
 	camera.global_position = lerp(camera.global_position, camera_target.global_position, 0.2)
+	
 	#Keeps the held item in hand.
 	if current_target != null and hold_item:
 		current_target.held(hand.global_position)

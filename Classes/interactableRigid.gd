@@ -31,15 +31,15 @@ var frozen_last_frame = false
 
 
 
-#TODO: Implement freeze with rewind
+#TODO: CLEANUP
+#MAKE HOLDING ITEMS NOT RELY ON FREEZE = TRUE
+
+
+
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
 	Global.rewind_state = rewind_values["position"].size() == max_array_size
 	print(Global.rewind_state)
-	#Each tick record values of the object into an array untill max_array_size if
-	#the games not in state Frozen or Rewind
-	
-	
 	if Global.exiting:
 		if not Global.rewind_state: return
 		Global.play()
@@ -51,6 +51,8 @@ func _physics_process(delta):
 			rewind_values[key].clear()
 		return
 	
+	#Each frame record values of the object into an array untill max_array_size if
+	#the games not in state Frozen or Rewind
 	if rewind_values["position"].size() == max_array_size and not Global.frozen and not Global.rewinding and current_tick_offset == 0:
 		for key in rewind_values:
 			rewind_values[key].pop_front()
@@ -81,8 +83,6 @@ func _physics_process(delta):
 		rewind()
 
 
-
-
 func rewind():
 	#To rewind we just move the object to the recorded position from rewind_values, offset by the frame
 	if not Global.rewind_state: return
@@ -95,7 +95,6 @@ func rewind():
 	print(max_array_size, " ", rewind_values["position"].size())
 	global_position = rewind_values["position"][max_array_size - current_tick_offset]
 	global_rotation = rewind_values["rotation"][max_array_size - current_tick_offset]
-	
 
 func replay():
 	if not Global.rewind_state: return
@@ -107,6 +106,10 @@ func replay():
 		return
 	global_position = rewind_values["position"][max_array_size - current_tick_offset - 1]
 	global_rotation = rewind_values["rotation"][max_array_size - current_tick_offset - 1]
+
+func held(hand_position : Vector3):
+	move_and_collide(hand_position - self.global_position)
+
 
 func interact():
 	_on_interacted()

@@ -18,5 +18,3 @@ func stop_interaction():
 func _on_body_entered(_body):
 	stop_interaction()
 
-func held(hand_position : Vector3):
-	move_and_collide(hand_position - self.global_position)
