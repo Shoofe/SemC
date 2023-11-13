@@ -13,7 +13,7 @@ var sprint = 1
 var moveable = true
 var lock_mouse = false
 var hold_item = false
-var throw_strength = 10
+var throw_strength = 8
 
 @onready var hand = $Head/Hand
 @onready var raycast = $Head/RayCast3D
@@ -83,21 +83,21 @@ func handle_movement(delta):
 
 func _input(event):
 	#Time freeze logic.
-	if Global.rewind_state:
+	if Global.recorded_full:
 		if Input.is_action_just_pressed("F"):
-			Global.freeze()
+			Global.setState(Global.State.FROZEN)
 			if current_target != null:
 				stop_interaction()
 		if Input.is_action_just_pressed("R"):
-			Global.rewind()
+			Global.setState(Global.State.REWINDING)
 			if current_target != null:
 				stop_interaction()
 		if Input.is_action_just_pressed("T"):
-			Global.play()
+			Global.setState(Global.State.PLAYING)
 			if current_target != null:
 				stop_interaction()
 		if Input.is_action_just_pressed("G"):
-			Global.exit()
+			Global.setState(Global.State.FLUSH)
 			if current_target != null:
 				stop_interaction()
 	#Throw on MOUSE2.

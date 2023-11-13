@@ -33,6 +33,10 @@ Broke time stop with the rewind script. Shouldn't be too hard to re-implement.
 Fixed broken time stop and rewind. (was hard)
 Some bugfixes..
 
+11.13.23.
+Time thing finally fixed completly. In its final state. Could be better but works flawlesly.
+Some minor bugfixes
+
 FIX:
 Fix player position during locked camera interactions
 

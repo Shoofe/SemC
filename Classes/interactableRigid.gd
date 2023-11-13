@@ -18,96 +18,100 @@ var disable_mouse = false
 var focus_camera_position : Node3D = null
 #The position where the camera is when focused
 
-var rewind_values: Dictionary = {
+var recorded_values: Dictionary = {
 	"position":[],
 	"rotation":[],
 	"velocity":[]
 }
 
-var max_array_size = Global.rewind_seconds * Engine.physics_ticks_per_second
-var current_tick_offset = 0
-
-var frozen_last_frame = false
-
+var max_array_size = Global.record_seconds * Engine.physics_ticks_per_second
+var is_held = false
+var flushed = false
 
 
-#TODO: CLEANUP
-#MAKE HOLDING ITEMS NOT RELY ON FREEZE = TRUE
-
-
+func _ready():
+	freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
+	Global.setMaxArraySize(max_array_size)
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
-	Global.rewind_state = rewind_values["position"].size() == max_array_size
-	print(Global.rewind_state)
-	if Global.exiting:
-		if not Global.rewind_state: return
-		Global.play()
-		linear_velocity = Vector3.ZERO
-		freeze = false
-		frozen_last_frame = false
-		current_tick_offset = 0
-		for key in rewind_values:
-			rewind_values[key].clear()
-		return
+
+	#HERE
+	if flushed:
+		Global.setState(Global.State.IDLE)
+		print("Flush")
+		flushed = false
 	
-	#Each frame record values of the object into an array untill max_array_size if
-	#the games not in state Frozen or Rewind
-	if rewind_values["position"].size() == max_array_size and not Global.frozen and not Global.rewinding and current_tick_offset == 0:
-		for key in rewind_values:
-			rewind_values[key].pop_front()
-	if not Global.frozen and not Global.rewinding and current_tick_offset == 0:
-		rewind_values["position"].append(global_position)
-		rewind_values["rotation"].append(global_rotation)
-		rewind_values["velocity"].append(linear_velocity)
+	#Each frame we update the array size
+	Global.setArraySize(recorded_values["position"].size())
 	
-	#If we just froze, freeze the object. 
-	if Global.frozen and not frozen_last_frame:
+	
+	#Because of a race condition when having multiple objects we will flush and then do the rest at the start of the next frame just above GOTO: HERE
+	if Global.state == Global.State.FLUSH:
+		for key in recorded_values:
+				recorded_values[key].clear()
+		Global.frame_offset = 0
+		flushed = true
+	
+	if Global.recording:
+		#print("S")
+		#If the recording is full, pop from the front
+		if recorded_values["position"].size() == max_array_size:
+			for key in recorded_values:
+				recorded_values[key].pop_front()
+		#We now are sure we have space in the array and we save the current state of the obj
+		recorded_values["position"].append(global_position)
+		recorded_values["rotation"].append(global_rotation)
+		recorded_values["velocity"].append(linear_velocity)
+
+
+	if Global.state == Global.State.PLAYING:
+		#If we're playing we have two cases: (1)We have some states already recorded and we play back those states.
+		#                                 or (2)We are recording new movement
+		#This is descided by inspecting the offset. If it's zero, we have nothing to play and we're recording new movement, otherwise, we lower the offset by one
+		#and bring the state closer to "now"
+		if Global.frame_offset - 1 != 0:
+			Global.offsetDecrement()
+		#And if it is zero after this, and we're playing, we must start recording, as me moved into the other state (2)
+		#And we must release the control over the object to the psysics
+		else:
+			Global.setState(Global.State.IDLE)
+		
+	
+	if Global.state == Global.State.REWINDING:
+		#If we're rewinding we must be carefull as not to exit the array bounds. This means we have to keep our frame_offset less than max_array_size,
+		#As we expect for our array to always be "full" during this manipulation. Because of that once they're equal we must freeze as to disable further rewinding.
+		#Once we reach the end of the recording in the past (the first states recorded) we will just freeze the object.
+		if Global.frame_offset + 1 == max_array_size:
+			Global.setState(Global.State.FROZEN)
+		#The rewinding is just simply increasing the frame_offest as that gets our state that is one frame further in the past.
+		else:
+			Global.offsetIncrement()
+		
+	#Each frame we check if we filled the array up to max_array_size
+	if Global.max_array_size == recorded_values["position"].size():
+		Global.recorded_full = true
+	else:
+		Global.recorded_full = false
+	
+	
+	
+	if not Global.state == Global.State.IDLE and Global.recorded_full and Global.max_array_size >= Global.frame_offset:
 		freeze = true
-		frozen_last_frame = true
-	
-	#If we just unfroze, unfreeze the object and apply the last recorded velocity at max_array_size
-	if not Global.frozen and frozen_last_frame and current_tick_offset == 0 and not Global.playing:
-		if not Global.rewind_state: return
+		global_position = recorded_values["position"][Global.max_array_size - Global.frame_offset - 1]
+		global_rotation = recorded_values["rotation"][Global.max_array_size - Global.frame_offset - 1]
+		linear_velocity = recorded_values["velocity"][Global.max_array_size - Global.frame_offset - 1]
+	else:
 		freeze = false
-		frozen_last_frame = false
+	if Global.state == Global.State.FROZEN:
 		linear_velocity = Vector3.ZERO
-		apply_impulse(rewind_values["velocity"][max_array_size - current_tick_offset - 1])
-	
-	#If the current frame offset is > 0, then we have to replay the motion we rewound
-	if not Global.rewinding and not Global.frozen and current_tick_offset != 0:
-		replay()
-	
-	#if we're rewinding, we just have to play the recorded motions backwards.
-	if Global.rewinding:
-		rewind()
-
-
-func rewind():
-	#To rewind we just move the object to the recorded position from rewind_values, offset by the frame
-	if not Global.rewind_state: return
-	current_tick_offset += 1
-	if current_tick_offset == max_array_size:
-		#If we rewound to the beginning of the recording
-		Global.freeze()
-		frozen_last_frame = true
-		return
-	print(max_array_size, " ", rewind_values["position"].size())
-	global_position = rewind_values["position"][max_array_size - current_tick_offset]
-	global_rotation = rewind_values["rotation"][max_array_size - current_tick_offset]
-
-func replay():
-	if not Global.rewind_state: return
-	current_tick_offset -= 1
-	if current_tick_offset == 0:
-		#If we rewound to the beginning of the recording
-		Global.play()
-		frozen_last_frame = false
-		return
-	global_position = rewind_values["position"][max_array_size - current_tick_offset - 1]
-	global_rotation = rewind_values["rotation"][max_array_size - current_tick_offset - 1]
+	is_held = false
 
 func held(hand_position : Vector3):
+	freeze = true
+	if not Global.state == Global.State.IDLE and flushed:
+		Global.setState(Global.State.FLUSH)
+	is_held = true
 	move_and_collide(hand_position - self.global_position)
 
 

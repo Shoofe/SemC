@@ -8,12 +8,12 @@ class_name Item
 
 func interact():
 	freeze = true
-	sleeping = true
+
 
 func stop_interaction():
-	linear_velocity = Vector3.ZERO
-	sleeping = false
 	freeze = false
+	linear_velocity = Vector3.ZERO
+
 
 func _on_body_entered(_body):
 	stop_interaction()
