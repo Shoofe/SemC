@@ -15,6 +15,12 @@ var max_array_size: int = 0
 var recording = true
 var state = State.IDLE
 
+var state_available = [false,false,false,false,false]
+
+
+func _ready():
+	enableAll()
+
 enum State {
 	FROZEN,
 	PLAYING,
@@ -24,14 +30,26 @@ enum State {
 }
 
 func setState(st: State):
+	if not state_available[st]:
+		print("State ", st, " not available")
+		return
 	state = st
-	print("New state:", st)
+	print("Current state: ", st)
 	if state == State.IDLE:
 		recording = true
 	else:
 		recording = false
 
-func _physics_process(delta):
+func enableState(st: State):
+	state_available[st] = true
+	print("Enabled state: ", st)
+
+func enableAll():
+	#Enable all states (DEBUG)
+	for x in range(State.size()):
+		state_available[x] = true
+
+func _physics_process(_delta):
 	offset_changed = false
 
 func offsetDecrement():
@@ -49,5 +67,6 @@ func setMaxArraySize(sz: int):
 	max_array_size = sz
 
 func setArraySize(sz: int):
-	#print(sz)
 	array_size = sz
+
+

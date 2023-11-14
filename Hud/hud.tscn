@@ -1,0 +1,102 @@
+[gd_scene load_steps=9 format=3 uid="uid://dtth3mr2drpxa"]
+
+[ext_resource type="Script" path="res://Hud/hud.gd" id="1_1hlij"]
+[ext_resource type="Texture2D" uid="uid://dewuhsv6du4nj" path="res://Hud/Hud Elements/ProgressBarInside.png" id="1_rqbst"]
+[ext_resource type="Texture2D" uid="uid://7tdir82mjygn" path="res://Hud/Hud Elements/ProgressBarOutside.png" id="2_622i0"]
+[ext_resource type="Texture2D" uid="uid://dscvcni5sbn1y" path="res://Hud/Hud Elements/PauseIcon.png" id="2_r6xny"]
+[ext_resource type="Texture2D" uid="uid://b637jy608jhjy" path="res://Hud/Hud Elements/PlayingIcon.png" id="3_t0kof"]
+[ext_resource type="Texture2D" uid="uid://pktn0ownmn0j" path="res://Hud/Hud Elements/IconBackground.png" id="3_wtven"]
+[ext_resource type="Texture2D" uid="uid://lcak46cmsgmg" path="res://Hud/Hud Elements/RewindingIcon.png" id="4_pmg16"]
+[ext_resource type="Texture2D" uid="uid://c1qi1lgqw3wki" path="res://Hud/Hud Elements/RecordingIcon.png" id="5_xific"]
+
+[node name="Hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1hlij")
+iconPause = ExtResource("2_r6xny")
+iconPlaying = ExtResource("3_t0kof")
+iconRewind = ExtResource("4_pmg16")
+iconRecording = ExtResource("5_xific")
+
+[node name="RecordedProgress" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 19.0
+offset_right = 1200.0
+offset_bottom = 63.0
+scale = Vector2(1, 0.269175)
+nine_patch_stretch = true
+stretch_margin_left = 5
+stretch_margin_top = 5
+stretch_margin_right = 5
+stretch_margin_bottom = 5
+texture_under = ExtResource("1_rqbst")
+texture_over = ExtResource("2_622i0")
+texture_progress = ExtResource("1_rqbst")
+tint_under = Color(0.278431, 0.192157, 0.172549, 1)
+tint_over = Color(0.286275, 0.0509804, 0.172549, 1)
+tint_progress = Color(0.619608, 0.372549, 0.101961, 1)
+
+[node name="CurrentFrame" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 28.0
+offset_right = 1200.0
+offset_bottom = 72.0
+scale = Vector2(1, 0.109175)
+nine_patch_stretch = true
+stretch_margin_left = 5
+stretch_margin_top = 5
+stretch_margin_right = 5
+stretch_margin_bottom = 5
+texture_under = ExtResource("1_rqbst")
+texture_over = ExtResource("2_622i0")
+texture_progress = ExtResource("1_rqbst")
+tint_under = Color(0.145098, 0.0980392, 0.0392157, 1)
+tint_over = Color(0, 0, 0, 1)
+
+[node name="StateIcon" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 350.0
+offset_top = 7.0
+offset_right = 390.0
+offset_bottom = 47.0
+
+[node name="Background" type="TextureRect" parent="StateIcon"]
+modulate = Color(1, 1, 1, 0.447059)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_wtven")
+
+[node name="Icon" type="TextureRect" parent="StateIcon"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Blink" type="Timer" parent="StateIcon"]
+autostart = true
+
+[node name="Message" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 1081.0
+offset_top = 479.0
+offset_right = 1121.0
+offset_bottom = 519.0
+scale = Vector2(12.08, 2.56)
+
+[node name="msg" type="RichTextLabel" parent="Message"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 19.0
+offset_right = 166.0
+offset_bottom = 74.0
+scale = Vector2(0.180614, 0.625001)
+theme_override_colors/default_color = Color(0, 0, 0.705882, 1)
+fit_content = true
+
+[connection signal="timeout" from="StateIcon/Blink" to="." method="_on_blink_timeout"]

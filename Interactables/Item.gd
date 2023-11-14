@@ -7,14 +7,21 @@ class_name Item
 
 
 func interact():
+	if Global.state != Global.State.IDLE:
+		flush()
 	freeze = true
+	is_held = true
 
 
 func stop_interaction():
 	freeze = false
-	linear_velocity = Vector3.ZERO
+	is_held = false
+	apply_impulse(Vector3(0.1,0.1,0.1))
+	
 
 
-func _on_body_entered(_body):
+func _on_body_entered(body):
+	if body is StaticBody3D:
+		return
 	stop_interaction()
 

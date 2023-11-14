@@ -37,11 +37,11 @@ Some bugfixes..
 Time thing finally fixed completly. In its final state. Could be better but works flawlesly.
 Some minor bugfixes
 
-FIX:
-Fix player position during locked camera interactions
-
-
-TODO: 
-Make assets
+11.14.23.
+Added pressure plates
+Added HUD icons and progress bars (placeholder)
+Refined rewind system
+Refined player movement
+(Game is starting to take shape :3)
 
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://i6ex30grw0hx"]
+[gd_scene load_steps=5 format=3 uid="uid://i6ex30grw0hx"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_a24gg"]
+[ext_resource type="PackedScene" uid="uid://dtth3mr2drpxa" path="res://Hud/hud.tscn" id="2_oyxuv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ssckq"]
 radius = 0.25
@@ -15,6 +16,8 @@ script = ExtResource("1_a24gg")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66881, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="Hud" parent="Head/Camera3D" instance=ExtResource("2_oyxuv")]
 
 [node name="DefaultCameraPosition" type="Node3D" parent="Head"]
 

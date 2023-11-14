@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://i6ex30grw0hx" path="res://Player/player.tscn" id="2_wkyjg"]
 [ext_resource type="PackedScene" uid="uid://ced5pa85yno3j" path="res://Interactables/item.tscn" id="3_fsr28"]
 [ext_resource type="PackedScene" uid="uid://bqsj8ui1l3hpn" path="res://Interactables/Walls/WallUnit/wall.tscn" id="4_d8s5b"]
-[ext_resource type="PackedScene" uid="uid://chtvbete705mt" path="res://Interactables/Switch.tscn" id="5_s6qel"]
+[ext_resource type="PackedScene" uid="uid://c64jcf0ymuq23" path="res://Interactables/pressure_plate.tscn" id="6_jj4hi"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_3vu4p"]
 size = Vector2(20, 20)
@@ -27,6 +27,7 @@ shape = SubResource("ConvexPolygonShape3D_e51l1")
 
 [node name="Player" parent="." instance=ExtResource("2_wkyjg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.196918, 0, 0.0350676)
+jump_stregth = 5
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.795717, -0.43933, 0.416923, 0, 0.688367, 0.725362, -0.605669, -0.577183, 0.547745, 3.50841, 0, -18)
@@ -36,7 +37,7 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1619, 2, -0.278515)
 
 [node name="Floor2" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor2"]
 mesh = SubResource("PlaneMesh_3vu4p")
@@ -48,10 +49,25 @@ shape = SubResource("ConvexPolygonShape3D_e51l1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -10)
 door = true
 
-[node name="Switch" parent="." instance=ExtResource("5_s6qel")]
-transform = Transform3D(-8.88178e-16, 2.98023e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, 2.98023e-08, 2.66291, 1.03154, -9.89986)
-
 [node name="Item2" parent="." instance=ExtResource("3_fsr28")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1619, 2, -0.278515)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.77639, 2, -18.2785)
 
-[connection signal="switched" from="Switch" to="Wall" method="_on_switch_switched"]
+[node name="PressurePlate" parent="." instance=ExtResource("6_jj4hi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -6)
+
+[node name="WallTriple2" parent="." instance=ExtResource("1_n07mx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -10)
+
+[node name="WallTriple3" parent="." instance=ExtResource("1_n07mx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -10)
+
+[node name="WallTriple4" parent="." instance=ExtResource("1_n07mx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -10)
+
+[node name="PressurePlate2" parent="." instance=ExtResource("6_jj4hi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.03824, 4.76837e-07, -18.3658)
+
+[node name="PressurePlate3" parent="." instance=ExtResource("6_jj4hi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -21)
+
+[connection signal="_state_changed" from="PressurePlate" to="Wall" method="_on_pressure_plate__state_changed"]

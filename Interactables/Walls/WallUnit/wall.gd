@@ -30,3 +30,8 @@ func _on_switch_2_switched(state):
 func _on_lever_2_state_changed(amount):
 	if amount > 80: Door.open(true)
 	elif amount < 20: Door.open(false)
+
+
+func _on_pressure_plate__state_changed(state):
+	if door:
+		Door.open(state)

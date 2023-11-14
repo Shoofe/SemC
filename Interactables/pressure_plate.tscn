@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://c64jcf0ymuq23"]
+
+[ext_resource type="Script" path="res://Interactables/pressure_plate.gd" id="1_q3x1n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qv8b4"]
+albedo_color = Color(0.156863, 0.105882, 0.105882, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fn8yx"]
+material = SubResource("StandardMaterial3D_qv8b4")
+size = Vector3(1.5, 0.1, 1.5)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_u4f47"]
+points = PackedVector3Array(-0.75, -0.05, -0.75, -0.75, 0.05, -0.75, 0.75, -0.05, -0.75, -0.75, -0.05, 0.75, -0.75, 0.05, 0.75, 0.75, 0.05, -0.75, 0.75, -0.05, 0.75, 0.75, 0.05, 0.75)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uc8qs"]
+albedo_color = Color(1, 0.14902, 0.168627, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_monu5"]
+material = SubResource("StandardMaterial3D_uc8qs")
+size = Vector3(1.2, 0.1, 1.2)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ve5re"]
+points = PackedVector3Array(-0.6, -0.05, -0.6, -0.6, 0.05, -0.6, 0.6, -0.05, -0.6, -0.6, -0.05, 0.6, -0.6, 0.05, 0.6, 0.6, 0.05, -0.6, 0.6, -0.05, 0.6, 0.6, 0.05, 0.6)
+
+[node name="PressurePlate" type="StaticBody3D"]
+script = ExtResource("1_q3x1n")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0227147, 0)
+mesh = SubResource("BoxMesh_fn8yx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.023582, 0)
+shape = SubResource("ConvexPolygonShape3D_u4f47")
+
+[node name="ButtonMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_monu5")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0396472, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0372643, 0)
+shape = SubResource("ConvexPolygonShape3D_ve5re")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

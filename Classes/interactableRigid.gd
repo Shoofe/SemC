@@ -33,14 +33,15 @@ func _ready():
 	freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
 	Global.setMaxArraySize(max_array_size)
 
-@warning_ignore("unused_parameter")
-func _physics_process(delta):
+
+func _physics_process(_delta):
 
 	#HERE
 	if flushed:
-		Global.setState(Global.State.IDLE)
-		print("Flush")
+		if Global.state != Global.State.IDLE:
+			Global.setState(Global.State.IDLE)
 		flushed = false
+		linear_velocity = Vector3(0.1,0.1,0.1)
 	
 	#Each frame we update the array size
 	Global.setArraySize(recorded_values["position"].size())
@@ -48,13 +49,9 @@ func _physics_process(delta):
 	
 	#Because of a race condition when having multiple objects we will flush and then do the rest at the start of the next frame just above GOTO: HERE
 	if Global.state == Global.State.FLUSH:
-		for key in recorded_values:
-				recorded_values[key].clear()
-		Global.frame_offset = 0
-		flushed = true
+		flush()
 	
 	if Global.recording:
-		#print("S")
 		#If the recording is full, pop from the front
 		if recorded_values["position"].size() == max_array_size:
 			for key in recorded_values:
@@ -70,7 +67,7 @@ func _physics_process(delta):
 		#                                 or (2)We are recording new movement
 		#This is descided by inspecting the offset. If it's zero, we have nothing to play and we're recording new movement, otherwise, we lower the offset by one
 		#and bring the state closer to "now"
-		if Global.frame_offset - 1 != 0:
+		if Global.frame_offset != 0:
 			Global.offsetDecrement()
 		#And if it is zero after this, and we're playing, we must start recording, as me moved into the other state (2)
 		#And we must release the control over the object to the psysics
@@ -113,6 +110,12 @@ func held(hand_position : Vector3):
 		Global.setState(Global.State.FLUSH)
 	is_held = true
 	move_and_collide(hand_position - self.global_position)
+
+func flush():
+	for key in recorded_values:
+		recorded_values[key].clear()
+	Global.frame_offset = 0
+	flushed = true
 
 
 func interact():
