@@ -19,7 +19,7 @@ var throw_strength = 8
 @onready var raycast = $Head/RayCast3D
 
 var current_target = null
-var item_far = -2.0
+var item_far = -2.3
 var item_near = -1.5
 var item_increment = 0.1
 
@@ -57,6 +57,7 @@ func handle_movement(delta):
 	#Keeps the held item in hand.
 	if current_target != null and hold_item:
 		current_target.held(hand.global_position)
+
 	
 	#Jump and sprint.
 	if Input.is_action_pressed("SPACE") and is_on_floor():

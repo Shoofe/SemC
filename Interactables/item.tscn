@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ced5pa85yno3j"]
+[gd_scene load_steps=6 format=3 uid="uid://ced5pa85yno3j"]
 
 [ext_resource type="Script" path="res://Interactables/Item.gd" id="1_xujua"]
+[ext_resource type="AudioStream" uid="uid://bwl7hisyrab0g" path="res://Audio/Sounds/ColisionSound.wav" id="2_3kdqf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nhupl"]
 albedo_color = Color(0.52549, 0.168627, 0.454902, 1)
@@ -21,3 +22,6 @@ mesh = SubResource("BoxMesh_1uqn3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_cjmy4")
+
+[node name="Sound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_3kdqf")

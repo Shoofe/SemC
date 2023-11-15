@@ -1,6 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c64jcf0ymuq23"]
+[gd_scene load_steps=10 format=3 uid="uid://c64jcf0ymuq23"]
 
 [ext_resource type="Script" path="res://Interactables/pressure_plate.gd" id="1_q3x1n"]
+[ext_resource type="AudioStream" uid="uid://umgdirxusq2n" path="res://Audio/Sounds/ButtonPress.wav" id="2_6msox"]
+[ext_resource type="AudioStream" uid="uid://72novqfu77eu" path="res://Audio/Sounds/ButtonUnpress.wav" id="3_4tepw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qv8b4"]
 albedo_color = Color(0.156863, 0.105882, 0.105882, 1)
@@ -42,6 +44,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0396472, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0372643, 0)
 shape = SubResource("ConvexPolygonShape3D_ve5re")
+
+[node name="SoundPress" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_6msox")
+
+[node name="SoundDepress" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_4tepw")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

@@ -20,8 +20,5 @@ func stop_interaction():
 	
 
 
-func _on_body_entered(body):
-	if body is StaticBody3D:
-		return
-	stop_interaction()
+
 

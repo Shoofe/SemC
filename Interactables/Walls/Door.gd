@@ -3,7 +3,8 @@ extends StaticBody3D
 var opened = false
 var state_closed = Vector3(0,0,0)
 var state_opened = Vector3(0,2.25,0)
-
+var close_when_passed = false
+var start_open = false
 
 func _physics_process(delta):
 
@@ -14,5 +15,13 @@ func _physics_process(delta):
 
 
 func open(state: bool):
-	opened = state
+	if start_open:
+		opened = !state
+	else:
+		opened = state
 
+
+
+func _on_area_3d_body_exited(body):
+	if close_when_passed:
+		open(false)

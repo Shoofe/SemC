@@ -16,10 +16,10 @@ var recording = true
 var state = State.IDLE
 
 var state_available = [false,false,false,false,false]
+var hud_visible = false
 
-
-func _ready():
-	enableAll()
+#func _ready():
+#	enableAll()
 
 enum State {
 	FROZEN,

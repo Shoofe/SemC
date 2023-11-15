@@ -44,4 +44,9 @@ Refined rewind system
 Refined player movement
 (Game is starting to take shape :3)
 
+11.15.23.
+Added more platforms (moveble and rotateable)
+Added some door logic
+Created a test level, but the process of creating levels is torture. TODO: Rework walls, doors such that they're easier to work with.
+
 

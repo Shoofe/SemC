@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bqsj8ui1l3hpn"]
+[gd_scene load_steps=11 format=3 uid="uid://bqsj8ui1l3hpn"]
 
 [ext_resource type="Script" path="res://Interactables/Walls/WallUnit/wall.gd" id="1_c7ptv"]
 [ext_resource type="Script" path="res://Interactables/Walls/Door.gd" id="2_84hme"]
@@ -25,13 +25,17 @@ size = Vector3(1.5, 2.5, 0.15)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8qdub"]
 points = PackedVector3Array(-0.75, -1.25, -0.075, -0.75, -1.25, 0.075, -0.75, 1.25, -0.075, 0.75, -1.25, -0.075, 0.75, -1.25, 0.075, -0.75, 1.25, 0.075, 0.75, 1.25, -0.075, 0.75, 1.25, 0.075)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_b5hnf"]
+size = Vector3(1, 2, 1)
+
 [node name="Wall" type="StaticBody3D"]
 script = ExtResource("1_c7ptv")
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 
 [node name="WallMesh" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 1.5, 0)
+transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 0.2, 0, 3, 0)
+size = Vector3(1, 2, 1)
 
 [node name="DoorMesh" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1.5, 0, 0, 0, 2.5, 0, 0, 0, 0.3, 0, 1.25, 0)
@@ -64,3 +68,11 @@ mesh = SubResource("BoxMesh_bpu12")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 shape = SubResource("ConvexPolygonShape3D_8qdub")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.563089)
+shape = SubResource("BoxShape3D_b5hnf")
+
+[connection signal="body_exited" from="Area3D" to="Door" method="_on_area_3d_body_exited"]

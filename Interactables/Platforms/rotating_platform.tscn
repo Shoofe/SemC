@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dku2bheu347re"]
+
+[ext_resource type="Script" path="res://Interactables/Platforms/rotating_platform.gd" id="1_0juwe"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4mxgh"]
+albedo_color = Color(0.231373, 0.266667, 0.631373, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kckeo"]
+material = SubResource("StandardMaterial3D_4mxgh")
+size = Vector3(2, 0.2, 2)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_h6l6a"]
+points = PackedVector3Array(-1, -0.1, -1, -1, 0.1, -1, 1, -0.1, -1, -1, -0.1, 1, -1, 0.1, 1, 1, 0.1, -1, 1, -0.1, 1, 1, 0.1, 1)
+
+[node name="RotatingPlatform" type="Node3D"]
+script = ExtResource("1_0juwe")
+
+[node name="Platform" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+mesh = SubResource("BoxMesh_kckeo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+visible = false
+shape = SubResource("ConvexPolygonShape3D_h6l6a")

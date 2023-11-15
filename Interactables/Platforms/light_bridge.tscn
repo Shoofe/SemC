@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://chdpjpj0i8u1n"]
+
+[ext_resource type="Script" path="res://Interactables/Platforms/light_bridge.gd" id="1_enopd"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_nrk5n"]
+lightmap_size_hint = Vector2i(17, 14)
+radius = 0.1
+height = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ent22"]
+size = Vector3(0.1, 1, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nvprq"]
+size = Vector3(0.7, 0.05, 10)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ir35r"]
+points = PackedVector3Array(0.349932, 0.025, 5, 0.349932, -0.025, 5, 0.349932, 0.025, -5, -0.35, 0.025, 5, -0.35, -0.025, 5, 0.349932, -0.025, -5, -0.35, 0.025, -5, -0.35, -0.025, -5)
+
+[node name="LightBridge" type="Node3D"]
+script = ExtResource("1_enopd")
+
+[node name="Base" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Base"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_nrk5n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Base"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_ent22")
+
+[node name="Bridge" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Bridge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+mesh = SubResource("BoxMesh_nvprq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bridge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+shape = SubResource("ConvexPolygonShape3D_ir35r")

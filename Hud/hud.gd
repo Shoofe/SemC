@@ -20,6 +20,7 @@ func _ready():
 	current_frame.max_value = Global.record_seconds * Engine.physics_ticks_per_second
 
 func _physics_process(_delta):
+	visible = Global.hud_visible
 	progress_bar.value = Global.array_size
 	current_frame.value = current_frame.max_value - Global.frame_offset
 	
