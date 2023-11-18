@@ -49,4 +49,6 @@ Added more platforms (moveble and rotateable)
 Added some door logic
 Created a test level, but the process of creating levels is torture. TODO: Rework walls, doors such that they're easier to work with.
 
-
+11.18.23
+Added level transition logic
+Redone walls, should be much easier to design levels now.

@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=3 uid="uid://dgblbhcvh40tm"]
+
+[ext_resource type="Script" path="res://Rooms/level_transition_room.gd" id="1_hn8d2"]
+[ext_resource type="PackedScene" uid="uid://8ssu60f71hgq" path="res://Interactables/Walls/Door/Gate.tscn" id="1_x7rou"]
+[ext_resource type="PackedScene" uid="uid://dp56fnqe7epir" path="res://Interactables/Walls/wall.tscn" id="2_ijwox"]
+[ext_resource type="PackedScene" uid="uid://do34rfdceqm35" path="res://Interactables/Walls/wall_triple.tscn" id="3_a6ud5"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1xfpl"]
+size = Vector2(10, 12)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7m1yg"]
+points = PackedVector3Array(5, 0, 6, -5, 0, 6, 5, 0, -6, -5, 0, -6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hn14u"]
+size = Vector3(10, 3, 1)
+
+[node name="LevelTransitionRoom" type="Node3D"]
+script = ExtResource("1_hn8d2")
+
+[node name="Gate" parent="." instance=ExtResource("1_x7rou")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+has_door = true
+
+[node name="Gate2" parent="." instance=ExtResource("1_x7rou")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+has_door = true
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Geometry"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Floor"]
+mesh = SubResource("PlaneMesh_1xfpl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Floor"]
+shape = SubResource("ConvexPolygonShape3D_7m1yg")
+
+[node name="Wall" parent="Geometry" instance=ExtResource("2_ijwox")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 6)
+
+[node name="Wall2" parent="Geometry" instance=ExtResource("2_ijwox")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 6)
+
+[node name="Wall3" parent="Geometry" instance=ExtResource("2_ijwox")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6)
+
+[node name="Wall4" parent="Geometry" instance=ExtResource("2_ijwox")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 6)
+
+[node name="Wall5" parent="Geometry" instance=ExtResource("2_ijwox")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -6)
+
+[node name="Wall6" parent="Geometry" instance=ExtResource("2_ijwox")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -6)
+
+[node name="Wall7" parent="Geometry" instance=ExtResource("2_ijwox")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -6)
+
+[node name="Wall8" parent="Geometry" instance=ExtResource("2_ijwox")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -6)
+
+[node name="WallTriple" parent="Geometry" instance=ExtResource("3_a6ud5")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 0, 3)
+
+[node name="WallTriple3" parent="Geometry" instance=ExtResource("3_a6ud5")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 0, -3)
+
+[node name="WallTriple2" parent="Geometry" instance=ExtResource("3_a6ud5")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5, 0, -3)
+
+[node name="WallTriple4" parent="Geometry" instance=ExtResource("3_a6ud5")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5, 0, 3)
+
+[node name="LevelLoadTrigger" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelLoadTrigger"]
+shape = SubResource("BoxShape3D_hn14u")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="body_entered" from="LevelLoadTrigger" to="." method="_on_level_load_trigger_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

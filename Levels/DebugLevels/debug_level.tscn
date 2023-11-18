@@ -1,12 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://bmda76lex85ma"]
+[gd_scene load_steps=12 format=3 uid="uid://bmda76lex85ma"]
 
-[ext_resource type="PackedScene" uid="uid://do34rfdceqm35" path="res://Interactables/Walls/WallTriple/wall_triple.tscn" id="1_7fbh7"]
+[ext_resource type="PackedScene" uid="uid://do34rfdceqm35" path="res://Interactables/Walls/wall_triple.tscn" id="1_7fbh7"]
+[ext_resource type="Script" path="res://Levels/DebugLevels/debug_level.gd" id="1_jytxu"]
 [ext_resource type="PackedScene" uid="uid://i6ex30grw0hx" path="res://Player/player.tscn" id="2_ih6ae"]
 [ext_resource type="PackedScene" uid="uid://ced5pa85yno3j" path="res://Interactables/item.tscn" id="3_ssabc"]
-[ext_resource type="PackedScene" uid="uid://bqsj8ui1l3hpn" path="res://Interactables/Walls/WallUnit/wall.tscn" id="4_fipoo"]
 [ext_resource type="PackedScene" uid="uid://c64jcf0ymuq23" path="res://Interactables/pressure_plate.tscn" id="5_hvku0"]
 [ext_resource type="PackedScene" uid="uid://ceoon7ato0vks" path="res://Interactables/Platforms/moving_platform.tscn" id="6_hipal"]
+[ext_resource type="PackedScene" uid="uid://8ssu60f71hgq" path="res://Interactables/Walls/Door/Gate.tscn" id="7_4cfka"]
 [ext_resource type="PackedScene" uid="uid://dku2bheu347re" path="res://Interactables/Platforms/rotating_platform.tscn" id="7_44vit"]
+[ext_resource type="PackedScene" uid="uid://dgblbhcvh40tm" path="res://Rooms/level_transition_room.tscn" id="8_33apq"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_3vu4p"]
 size = Vector2(20, 20)
@@ -15,11 +17,13 @@ size = Vector2(20, 20)
 points = PackedVector3Array(-10, 0, -10, -10, 0, 10, 10, 0, -10, 10, 0, 10)
 
 [node name="TestWorld" type="Node3D"]
+script = ExtResource("1_jytxu")
 
 [node name="WallTriple" parent="." instance=ExtResource("1_7fbh7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -24.521)
 
 [node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -14.521)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
 mesh = SubResource("PlaneMesh_3vu4p")
@@ -28,18 +32,18 @@ mesh = SubResource("PlaneMesh_3vu4p")
 shape = SubResource("ConvexPolygonShape3D_e51l1")
 
 [node name="Player" parent="." instance=ExtResource("2_ih6ae")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.196918, 0, 0.0350676)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.236145, 0, 0.194936)
 jump_stregth = 5
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.795717, -0.43933, 0.416923, 0, 0.688367, 0.725362, -0.605669, -0.577183, 0.547745, 3.50841, 0, -18)
+transform = Transform3D(0.795717, -0.43933, 0.416922, 0, 0.688367, 0.725363, -0.605669, -0.577183, 0.547745, 3.50841, 0, -32.521)
 shadow_enabled = true
 
 [node name="Item" parent="." instance=ExtResource("3_ssabc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1619, 2, -0.278515)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1619, 2, -14.7995)
 
 [node name="Floor2" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -34.521)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor2"]
 mesh = SubResource("PlaneMesh_3vu4p")
@@ -47,43 +51,50 @@ mesh = SubResource("PlaneMesh_3vu4p")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor2"]
 shape = SubResource("ConvexPolygonShape3D_e51l1")
 
-[node name="Wall" parent="." instance=ExtResource("4_fipoo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -10)
-door = true
-
 [node name="Item2" parent="." instance=ExtResource("3_ssabc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.77639, 2, 3.20181)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.77639, 2, -11.3192)
 
 [node name="PressurePlate" parent="." instance=ExtResource("5_hvku0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0719469, 0, -5.79986)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0719469, 0, -20.3209)
 
 [node name="WallTriple2" parent="." instance=ExtResource("1_7fbh7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -24.521)
 
 [node name="WallTriple3" parent="." instance=ExtResource("1_7fbh7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -24.521)
 
 [node name="WallTriple4" parent="." instance=ExtResource("1_7fbh7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -24.521)
 
 [node name="MovingPlatform" parent="." instance=ExtResource("6_hipal")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0360475, 0, -9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0360475, 0, -23.521)
 move_destination_relative = Vector3(0, 2, 0)
 
 [node name="RotatingPlatform" parent="." instance=ExtResource("7_44vit")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.05717, 2.10761, -9.88553)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.05717, 2.10761, -24.4065)
 start_rotation = 90.0
 rotation_speed = 4.0
 
 [node name="PressurePlate2" parent="." instance=ExtResource("5_hvku0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.10003, 0, -5.78497)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.10003, 0, -20.306)
 
 [node name="PressurePlate3" parent="." instance=ExtResource("5_hvku0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.51218, -9.53674e-07, -5.76686)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.51218, -9.53674e-07, -20.2879)
 
 [node name="PressurePlate4" parent="." instance=ExtResource("5_hvku0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.51928, 4.76837e-07, -1.67869)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.51928, 4.76837e-07, -16.1997)
 
-[connection signal="_state_changed" from="PressurePlate" to="MovingPlatform" method="_on_pressure_plate__state_changed"]
-[connection signal="_state_changed" from="PressurePlate2" to="RotatingPlatform" method="_on_pressure_plate_2__state_changed"]
-[connection signal="_state_changed" from="PressurePlate3" to="Wall" method="_on_pressure_plate_3__state_changed"]
+[node name="Gate" parent="." instance=ExtResource("7_4cfka")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -24.521)
+has_door = true
+
+[node name="LevelTransitionRoom" parent="." instance=ExtResource("8_33apq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 16.2298, 0, -16.9743)
+next_level = "res://Levels/DebugLevels/debug_level.tscn"
+
+[node name="LevelTransitionRoom2" parent="." instance=ExtResource("8_33apq")]
+is_start_of_level = true
+
+[connection signal="_state_changed" from="PressurePlate" to="RotatingPlatform" method="_on_pressure_plate__state_changed"]
+[connection signal="_state_changed" from="PressurePlate2" to="MovingPlatform" method="_on_pressure_plate_2__state_changed"]
+[connection signal="_state_changed" from="PressurePlate3" to="Gate" method="_on_pressure_plate_3__state_changed"]

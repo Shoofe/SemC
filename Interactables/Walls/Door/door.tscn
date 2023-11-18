@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://b63tg4duar07h"]
+
+[ext_resource type="Script" path="res://Interactables/Walls/Door/Door.gd" id="1_padv0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vp7xy"]
+albedo_color = Color(0.333333, 0.333333, 0.333333, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_o25rq"]
+material = SubResource("StandardMaterial3D_vp7xy")
+size = Vector3(1.8, 3, 0.1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_x1jh1"]
+points = PackedVector3Array(-0.9, -1.5, -0.05, -0.9, -1.5, 0.05, -0.9, 1.5, -0.05, 0.9, -1.5, -0.05, 0.9, -1.5, 0.05, -0.9, 1.5, 0.05, 0.9, 1.5, -0.05, 0.9, 1.5, 0.05)
+
+[node name="Door" type="StaticBody3D"]
+script = ExtResource("1_padv0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("BoxMesh_o25rq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("ConvexPolygonShape3D_x1jh1")

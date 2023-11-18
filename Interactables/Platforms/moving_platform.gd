@@ -16,7 +16,6 @@ func _physics_process(delta):
 func activate(state: bool):
 	activated = state
 
-func _on_pressure_plate_3__state_changed(state):
+func _on_pressure_plate_2__state_changed(state):
 	activate(state)
-
 
