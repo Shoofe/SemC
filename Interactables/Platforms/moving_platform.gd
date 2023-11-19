@@ -1,5 +1,5 @@
 extends Node3D
-@export var move_speed = 1
+@export var move_speed: float = 1
 @export var move_destination_relative: Vector3
 var move_start_destination = Vector3.ZERO
 
@@ -16,6 +16,16 @@ func _physics_process(delta):
 func activate(state: bool):
 	activated = state
 
+
+
+func _on_pressure_plate__state_changed(state):
+	activate(state)
+
 func _on_pressure_plate_2__state_changed(state):
 	activate(state)
+
+func _on_pressure_plate_3__state_changed(state):
+	activate(state)
+
+
 

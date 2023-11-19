@@ -9,7 +9,7 @@ var recorded_full = false
 var frame_offset = 0
 var array_size = 0
 var offset_changed = false
-var max_array_size: int = 0
+var max_array_size = record_seconds * Engine.physics_ticks_per_second
 
 
 var recording = true
@@ -22,8 +22,7 @@ var player_relative_rotation: Vector3 = Vector3.ZERO
 var state_available = [false,false,false,false,false]
 var hud_visible = false
 
-#func _ready():
-#	enableAll()
+
 
 enum State {
 	FROZEN,
@@ -47,6 +46,11 @@ func setState(st: State):
 func enableState(st: State):
 	state_available[st] = true
 	print("Enabled state: ", st)
+
+func disableState(st: State):
+	state_available[st] = false
+	print("Disabled state: ", st)
+
 
 func enableAll():
 	#Enable all states (DEBUG)

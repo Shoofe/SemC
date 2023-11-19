@@ -6,21 +6,21 @@ extends Control
 @export var iconRewind: Texture = null
 @export var iconRecording: Texture = null
 
-@onready var icon = $StateIcon/Icon
-@onready var blink = $StateIcon/Blink
+@onready var icon = $Hud/StateIcon/Icon
+@onready var blink = $Hud/StateIcon/Blink
 var blinking = false
 var blinked = false
 
 #Progress bar setup
-@onready var progress_bar = $RecordedProgress
-@onready var current_frame = $CurrentFrame
+@onready var progress_bar = $Hud/RecordedProgress
+@onready var current_frame = $Hud/CurrentFrame
 
 func _ready():
 	progress_bar.max_value = Global.record_seconds * Engine.physics_ticks_per_second
 	current_frame.max_value = Global.record_seconds * Engine.physics_ticks_per_second
 
 func _physics_process(_delta):
-	visible = Global.hud_visible
+	$Hud.visible = Global.hud_visible
 	progress_bar.value = Global.array_size
 	current_frame.value = current_frame.max_value - Global.frame_offset
 	
@@ -54,5 +54,13 @@ func changeIcon(state: Global.State):
 func _on_blink_timeout():
 	blinked = !blinked
 
-func show_message():
-	$Message/msg.text = Global.message
+@onready var label = $msg
+@onready var timer = $"Show message"
+
+func show_message(message: String):	
+	label.text = message
+	timer.start()
+
+
+func _on_show_message_timeout():
+	label.text = ""

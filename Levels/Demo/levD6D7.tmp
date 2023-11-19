@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://blo51f5jiriag"]
+
+[ext_resource type="PackedScene" uid="uid://dgblbhcvh40tm" path="res://Rooms/LevelTransitionRoom/level_transition_room.tscn" id="1_1gh3x"]
+[ext_resource type="PackedScene" uid="uid://i6ex30grw0hx" path="res://Player/player.tscn" id="1_a3wbu"]
+[ext_resource type="PackedScene" uid="uid://cxk35xegig07d" path="res://Geometry/floor.tscn" id="2_xd2c7"]
+[ext_resource type="PackedScene" uid="uid://do34rfdceqm35" path="res://Geometry/Walls/wall_triple.tscn" id="3_qta33"]
+[ext_resource type="PackedScene" uid="uid://dp56fnqe7epir" path="res://Geometry/Walls/wall.tscn" id="4_uccbi"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_attp7"]
+
+[sub_resource type="Sky" id="Sky_wujbt"]
+sky_material = SubResource("ProceduralSkyMaterial_attp7")
+
+[sub_resource type="Environment" id="Environment_wfi6o"]
+background_mode = 2
+sky = SubResource("Sky_wujbt")
+
+[node name="Level1" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_a3wbu")]
+
+[node name="Environment" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.0186, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_wfi6o")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 0.22541, 0.974264, 0, -0.974264, 0.22541, 0, 0, 0)
+
+[node name="LevelTransitionRoom" parent="." instance=ExtResource("1_1gh3x")]
+is_start_of_level = true
+
+[node name="Room1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -21)
+
+[node name="Floor" parent="Room1" instance=ExtResource("2_xd2c7")]
+
+[node name="WallTriple" parent="Room1" instance=ExtResource("3_qta33")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 15)
+
+[node name="Wall" parent="Room1" instance=ExtResource("4_uccbi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 15)
+
+[node name="Wall2" parent="Room1" instance=ExtResource("4_uccbi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, 15)
+
+[node name="WallTriple2" parent="Room1" instance=ExtResource("3_qta33")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 15)
+
+[node name="Wall3" parent="Room1" instance=ExtResource("4_uccbi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 15)
+
+[node name="Wall4" parent="Room1" instance=ExtResource("4_uccbi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 15)

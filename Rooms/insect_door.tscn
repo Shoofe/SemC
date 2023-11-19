@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://dsfwlygob1jds"]
+
+[ext_resource type="PackedScene" uid="uid://8ssu60f71hgq" path="res://Geometry/Walls/Door/Gate.tscn" id="1_uvqvi"]
+[ext_resource type="PackedScene" uid="uid://dp56fnqe7epir" path="res://Geometry/Walls/wall.tscn" id="2_wcxb2"]
+[ext_resource type="PackedScene" uid="uid://do34rfdceqm35" path="res://Geometry/Walls/wall_triple.tscn" id="3_cmhmq"]
+
+[node name="InsectDoor" type="Node3D"]
+
+[node name="Gate" parent="." instance=ExtResource("1_uvqvi")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 3)
+has_door = true
+starts_open = true
+
+[node name="Gate2" parent="." instance=ExtResource("1_uvqvi")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -3)
+has_door = true
+
+[node name="Wall" parent="." instance=ExtResource("2_wcxb2")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 2, 0, 3)
+
+[node name="WallTriple12" parent="." instance=ExtResource("3_cmhmq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3, 0, 0)
+
+[node name="WallTriple13" parent="." instance=ExtResource("3_cmhmq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 0, 0)
+
+[node name="Wall2" parent="." instance=ExtResource("2_wcxb2")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2, 0, 3)
+
+[node name="Wall3" parent="." instance=ExtResource("2_wcxb2")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 2, 0, -3)
+
+[node name="Wall4" parent="." instance=ExtResource("2_wcxb2")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2, 0, -3)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://8ssu60f71hgq"]
 
-[ext_resource type="Script" path="res://Interactables/Walls/Door/Gate.gd" id="1_nyr64"]
+[ext_resource type="Script" path="res://Geometry/Walls/Door/Gate.gd" id="1_nyr64"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_j74nm"]
 size = Vector3(2, 3, 0.2)

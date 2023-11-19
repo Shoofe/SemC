@@ -34,6 +34,7 @@ var default_fov = 80
 var max_zoom_out = 100
 var max_zoom_in = 50
 var zoom_increment = 2
+@onready var hud = $Head/Camera3D/Hud
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 @onready var default_camera_pos = $Head/DefaultCameraPosition
@@ -43,6 +44,9 @@ var zoom_increment = 2
 func _ready():
 	camera_target = default_camera_pos
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	global_position = Global.player_relative_postion
+	global_rotation = Global.player_relative_rotation
+
 
 func _physics_process(delta):
 	handle_movement(delta)
@@ -147,3 +151,8 @@ func stop_interaction():
 		lock_mouse = false
 		camera_target = default_camera_pos
 		current_target = null
+
+
+func show_message(message: String):
+	hud.show_message(message)
+

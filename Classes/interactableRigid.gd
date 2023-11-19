@@ -24,7 +24,7 @@ var recorded_values: Dictionary = {
 	"velocity":[]
 }
 
-var max_array_size = Global.record_seconds * Engine.physics_ticks_per_second
+var max_array_size = Global.max_array_size
 var is_held = false
 var flushed = false
 

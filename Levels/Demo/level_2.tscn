@@ -1,0 +1,352 @@
+[gd_scene load_steps=17 format=3 uid="uid://bf5mk5xdv5wph"]
+
+[ext_resource type="PackedScene" uid="uid://dgblbhcvh40tm" path="res://Rooms/LevelTransitionRoom/level_transition_room.tscn" id="1_etdes"]
+[ext_resource type="PackedScene" uid="uid://cxk35xegig07d" path="res://Geometry/floor30x30.tscn" id="2_fq6yl"]
+[ext_resource type="PackedScene" uid="uid://i6ex30grw0hx" path="res://Player/player.tscn" id="3_6bvbp"]
+[ext_resource type="PackedScene" uid="uid://8ssu60f71hgq" path="res://Geometry/Walls/Door/Gate.tscn" id="3_hjymt"]
+[ext_resource type="PackedScene" uid="uid://do34rfdceqm35" path="res://Geometry/Walls/wall_triple.tscn" id="3_mepbb"]
+[ext_resource type="PackedScene" uid="uid://c64jcf0ymuq23" path="res://Interactables/pressure_plate.tscn" id="4_p5p12"]
+[ext_resource type="PackedScene" uid="uid://ced5pa85yno3j" path="res://Interactables/item.tscn" id="5_lowde"]
+[ext_resource type="PackedScene" uid="uid://dku2bheu347re" path="res://Interactables/Platforms/rotating_platform.tscn" id="6_yl4sp"]
+[ext_resource type="PackedScene" uid="uid://dp56fnqe7epir" path="res://Geometry/Walls/wall.tscn" id="8_i8erp"]
+[ext_resource type="PackedScene" uid="uid://dqq0r4fvehs6x" path="res://Interactables/Triggers/Trigger.tscn" id="10_di5hv"]
+[ext_resource type="PackedScene" uid="uid://ceoon7ato0vks" path="res://Interactables/Platforms/moving_platform.tscn" id="11_04m0u"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1ir83"]
+
+[sub_resource type="Sky" id="Sky_i6hga"]
+sky_material = SubResource("ProceduralSkyMaterial_1ir83")
+
+[sub_resource type="Environment" id="Environment_l4i5a"]
+background_mode = 2
+sky = SubResource("Sky_i6hga")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bynpy"]
+flip_faces = true
+size = Vector2(25, 60)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_uw3i7"]
+flip_faces = true
+size = Vector2(10, 12)
+
+[node name="Level2" type="Node3D"]
+
+[node name="Environment" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.0186, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_l4i5a")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 0.22541, 0.974264, 0, -0.974264, 0.22541, 0, 0, 0)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.788634, 0.138596, 0.599039, -0.614864, 0.177766, 0.768337, 2.0589e-09, -0.974264, 0.22541, 0, 0, 0)
+light_color = Color(0.454902, 0.454902, 0.454902, 1)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("3_6bvbp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.07461, 3.3261, -4.77486)
+
+[node name="LevelTransitionRoom" parent="." instance=ExtResource("1_etdes")]
+is_start_of_level = true
+
+[node name="Room1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -21)
+
+[node name="Room1Items" type="Node3D" parent="Room1"]
+
+[node name="Gate" parent="Room1/Room1Items" instance=ExtResource("3_hjymt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9)
+has_door = true
+starts_open = true
+
+[node name="Gate2" parent="Room1/Room1Items" instance=ExtResource("3_hjymt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15)
+has_door = true
+
+[node name="PressurePlate" parent="Room1/Room1Items" instance=ExtResource("4_p5p12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -7)
+
+[node name="Item" parent="Room1/Room1Items" instance=ExtResource("5_lowde")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.29684, 0.525586, 5.32687)
+
+[node name="RotatingPlatform" parent="Room1/Room1Items" instance=ExtResource("6_yl4sp")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -6, 3, 0)
+start_rotation = 90.0
+
+[node name="PressurePlate2" parent="Room1/Room1Items" instance=ExtResource("4_p5p12")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4, 0, 0)
+
+[node name="Item2" parent="Room1/Room1Items" instance=ExtResource("5_lowde")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.112965, 4.05402, -4.76649)
+
+[node name="RotatingPlatform2" parent="Room1/Room1Items" instance=ExtResource("6_yl4sp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, 0)
+start_rotation = 90.0
+
+[node name="PressurePlate3" parent="Room1/Room1Items" instance=ExtResource("4_p5p12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="Trigger" parent="Room1/Room1Items" instance=ExtResource("10_di5hv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 12.3297)
+message_on_trigger = "Space to jump, Shift to sprint"
+
+[node name="RoomGeometry" type="Node3D" parent="Room1"]
+
+[node name="WallTriple" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 15)
+
+[node name="WallTriple2" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 15)
+
+[node name="WallTriple3" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6, 0, 12)
+
+[node name="WallTriple4" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6, 0, 6)
+
+[node name="WallTriple5" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6, 0, 0)
+
+[node name="WallTriple6" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6, 0, -6)
+
+[node name="WallTriple7" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6, 0, -12)
+
+[node name="WallTriple8" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6, 0, 12)
+
+[node name="WallTriple9" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6, 0, 6)
+
+[node name="WallTriple10" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6, 0, 0)
+
+[node name="WallTriple11" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6, 0, -6)
+
+[node name="WallTriple12" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6, 0, -12)
+
+[node name="Floor10x10" parent="Room1/RoomGeometry" instance=ExtResource("2_fq6yl")]
+
+[node name="WallTriple13" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -15)
+
+[node name="WallTriple15" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -15)
+
+[node name="WallTriple17" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -15)
+
+[node name="WallTriple18" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 15)
+
+[node name="WallTriple20" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 15)
+
+[node name="WallTriple16" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3, 0, -12)
+
+[node name="WallTriple19" parent="Room1/RoomGeometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 0, -12)
+
+[node name="Wall" parent="Room1/RoomGeometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -9)
+
+[node name="Wall2" parent="Room1/RoomGeometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -9)
+
+[node name="Wall3" parent="Room1/RoomGeometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -15)
+
+[node name="Wall4" parent="Room1/RoomGeometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -15)
+
+[node name="Wall5" parent="Room1/RoomGeometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, -5, -0.119013, 8.17367)
+
+[node name="Wall6" parent="Room1/RoomGeometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -5, 3, -3)
+
+[node name="Wall7" parent="Room1/RoomGeometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 5, -0.119013, 8.17367)
+
+[node name="Wall8" parent="Room1/RoomGeometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 5, 3, -3)
+
+[node name="Wall9" parent="Room1/RoomGeometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, -1, -4.37114e-08, -4.37114e-08, -4.37114e-08, -4.37114e-08, 1, 1, 2, -4)
+
+[node name="Wall10" parent="Room1/RoomGeometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, -1, -4.37114e-08, -4.37114e-08, -4.37114e-08, -4.37114e-08, 1, 1, 0, -4)
+
+[node name="Wall11" parent="Room1/RoomGeometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 3.55271e-15, 0, 3, -5)
+
+[node name="Wall12" parent="Room1/RoomGeometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 3.55271e-15, -6, 3, -5)
+
+[node name="Wall13" parent="Room1/RoomGeometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, -1, -4.37114e-08, -4.37114e-08, -4.37114e-08, -4.37114e-08, 1, -7, 2, -4)
+
+[node name="Wall14" parent="Room1/RoomGeometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, -1, -4.37114e-08, -4.37114e-08, -4.37114e-08, -4.37114e-08, 1, -7, 0, -4)
+
+[node name="Gate" parent="Room1/RoomGeometry" instance=ExtResource("3_hjymt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="Room2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -51)
+
+[node name="Room2Items" type="Node3D" parent="Room2"]
+
+[node name="Gate" parent="Room2/Room2Items" instance=ExtResource("3_hjymt")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -12, 0, -9)
+has_door = true
+starts_open = true
+
+[node name="Gate2" parent="Room2/Room2Items" instance=ExtResource("3_hjymt")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -12, 0, -15)
+has_door = true
+
+[node name="MovingPlatform" parent="Room2/Room2Items" instance=ExtResource("11_04m0u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 10)
+move_destination_relative = Vector3(0, 3, 0)
+
+[node name="PressurePlate2" parent="Room2/Room2Items" instance=ExtResource("4_p5p12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 10)
+
+[node name="MovingPlatform2" parent="Room2/Room2Items" instance=ExtResource("11_04m0u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, 7)
+move_speed = 0.1
+move_destination_relative = Vector3(0, 0, -16)
+
+[node name="PressurePlate" parent="Room2/Room2Items" instance=ExtResource("4_p5p12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 10)
+
+[node name="RotatingPlatform" parent="Room2/Room2Items" instance=ExtResource("6_yl4sp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.54489, 3)
+start_rotation = -90.0
+
+[node name="RotatingPlatform2" parent="Room2/Room2Items" instance=ExtResource("6_yl4sp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.54489, 0)
+start_rotation = -90.0
+
+[node name="RotatingPlatform3" parent="Room2/Room2Items" instance=ExtResource("6_yl4sp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.54489, -3)
+start_rotation = -90.0
+
+[node name="PressurePlate3" parent="Room2/Room2Items" instance=ExtResource("4_p5p12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 10)
+
+[node name="Item" parent="Room2/Room2Items" instance=ExtResource("5_lowde")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25025, 4, 6.71552)
+
+[node name="Item2" parent="Room2/Room2Items" instance=ExtResource("5_lowde")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.21906, 4, 13.2066)
+
+[node name="Item3" parent="Room2/Room2Items" instance=ExtResource("5_lowde")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.46871, 4, -10.727)
+
+[node name="PressurePlate4" parent="Room2/Room2Items" instance=ExtResource("4_p5p12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -5)
+
+[node name="Room2Geometry" type="Node3D" parent="Room2"]
+
+[node name="Wall" parent="Room2/Room2Geometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -10, 0, -9)
+
+[node name="WallTriple" parent="Room2/Room2Geometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 15)
+
+[node name="WallTriple3" parent="Room2/Room2Geometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 0, 12)
+
+[node name="WallTriple4" parent="Room2/Room2Geometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 0, 6)
+
+[node name="WallTriple5" parent="Room2/Room2Geometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 0, 0)
+
+[node name="WallTriple6" parent="Room2/Room2Geometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 0, -6)
+
+[node name="WallTriple7" parent="Room2/Room2Geometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 0, -12)
+
+[node name="WallTriple8" parent="Room2/Room2Geometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15, 0, 12)
+
+[node name="WallTriple9" parent="Room2/Room2Geometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15, 0, 6)
+
+[node name="WallTriple10" parent="Room2/Room2Geometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15, 0, 0)
+
+[node name="WallTriple11" parent="Room2/Room2Geometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15, 0, -6)
+
+[node name="WallTriple12" parent="Room2/Room2Geometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15, 0, -12)
+
+[node name="Floor10x10" parent="Room2/Room2Geometry" instance=ExtResource("2_fq6yl")]
+
+[node name="WallTriple14" parent="Room2/Room2Geometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15)
+
+[node name="WallTriple15" parent="Room2/Room2Geometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -15)
+
+[node name="WallTriple17" parent="Room2/Room2Geometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -15)
+
+[node name="WallTriple18" parent="Room2/Room2Geometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 15)
+
+[node name="WallTriple20" parent="Room2/Room2Geometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 15)
+
+[node name="WallTriple13" parent="Room2/Room2Geometry" instance=ExtResource("3_mepbb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9, 0, -12)
+
+[node name="Wall2" parent="Room2/Room2Geometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -14, 0, -9)
+
+[node name="Wall3" parent="Room2/Room2Geometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -10, 0, -15)
+
+[node name="Wall4" parent="Room2/Room2Geometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -14, 0, -15)
+
+[node name="Wall5" parent="Room2/Room2Geometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(-1, 0, 8.74228e-08, -8.74228e-08, -4.37114e-08, -1, 3.82137e-15, -1, 4.37114e-08, 2, 3, -6)
+
+[node name="Wall6" parent="Room2/Room2Geometry" instance=ExtResource("8_i8erp")]
+transform = Transform3D(-1.1, 0, 9.61651e-08, -9.61651e-08, -1.83588e-08, -1.1, 4.20351e-15, -0.42, 4.80825e-08, 2, 3, 8.57713)
+
+[node name="LevelTransitionRoom2" parent="." instance=ExtResource("1_etdes")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -72)
+next_level = "res://Levels/DebugLevels/debug_level.tscn"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 6, -36)
+mesh = SubResource("PlaneMesh_bynpy")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 6, -72)
+mesh = SubResource("PlaneMesh_uw3i7")
+
+[connection signal="_state_changed" from="Room1/Room1Items/PressurePlate" to="Room1/Room1Items/RotatingPlatform2" method="_on_pressure_plate__state_changed"]
+[connection signal="_state_changed" from="Room1/Room1Items/PressurePlate2" to="Room1/Room1Items/RotatingPlatform" method="_on_pressure_plate_2__state_changed"]
+[connection signal="_state_changed" from="Room1/Room1Items/PressurePlate3" to="Room1/Room1Items/Gate" method="_on_pressure_plate_3__state_changed"]
+[connection signal="_state_changed" from="Room1/Room1Items/PressurePlate3" to="Room1/Room1Items/Gate2" method="_on_pressure_plate_3__state_changed"]
+[connection signal="_state_changed" from="Room2/Room2Items/PressurePlate2" to="Room2/Room2Items/MovingPlatform" method="_on_pressure_plate_2__state_changed"]
+[connection signal="_state_changed" from="Room2/Room2Items/PressurePlate" to="Room2/Room2Items/MovingPlatform2" method="_on_pressure_plate__state_changed"]
+[connection signal="_state_changed" from="Room2/Room2Items/PressurePlate3" to="Room2/Room2Items/RotatingPlatform" method="_on_pressure_plate_3__state_changed"]
+[connection signal="_state_changed" from="Room2/Room2Items/PressurePlate3" to="Room2/Room2Items/RotatingPlatform2" method="_on_pressure_plate_3__state_changed"]
+[connection signal="_state_changed" from="Room2/Room2Items/PressurePlate3" to="Room2/Room2Items/RotatingPlatform3" method="_on_pressure_plate_3__state_changed"]
+[connection signal="_state_changed" from="Room2/Room2Items/PressurePlate4" to="Room2/Room2Items/Gate" method="_on_pressure_plate_4__state_changed"]
+[connection signal="_state_changed" from="Room2/Room2Items/PressurePlate4" to="Room2/Room2Items/Gate2" method="_on_pressure_plate_4__state_changed"]

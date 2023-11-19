@@ -16,6 +16,7 @@ points = PackedVector3Array(-1, -0.1, -1, -1, 0.1, -1, 1, -0.1, -1, -1, -0.1, 1,
 script = ExtResource("1_0juwe")
 
 [node name="Platform" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Platform"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)

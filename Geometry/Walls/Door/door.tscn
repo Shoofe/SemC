@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b63tg4duar07h"]
 
-[ext_resource type="Script" path="res://Interactables/Walls/Door/Door.gd" id="1_padv0"]
+[ext_resource type="Script" path="res://Geometry/Walls/Door/Door.gd" id="1_padv0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vp7xy"]
 albedo_color = Color(0.333333, 0.333333, 0.333333, 1)
