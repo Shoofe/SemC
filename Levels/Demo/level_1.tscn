@@ -12,6 +12,15 @@
 [ext_resource type="PackedScene" uid="uid://ceoon7ato0vks" path="res://Interactables/Platforms/moving_platform.tscn" id="10_l1ws5"]
 [ext_resource type="Script" path="res://Classes/AndGate.gd" id="11_ocfdv"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pbok6"]
+
+[sub_resource type="Sky" id="Sky_ihi2g"]
+sky_material = SubResource("ProceduralSkyMaterial_pbok6")
+
+[sub_resource type="Environment" id="Environment_n0fxu"]
+background_mode = 2
+sky = SubResource("Sky_ihi2g")
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_rvnpg"]
 flip_faces = true
 size = Vector2(18, 50)
@@ -26,16 +35,23 @@ size = Vector2(10, 12)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ix5lu"]
 points = PackedVector3Array(-25, 0, -25, -25, 0, 25, 25, 0, -25, 25, 0, 25)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_klr3f"]
-
-[sub_resource type="Sky" id="Sky_wujbt"]
-sky_material = SubResource("ProceduralSkyMaterial_klr3f")
-
-[sub_resource type="Environment" id="Environment_fx6bs"]
-background_mode = 2
-sky = SubResource("Sky_wujbt")
-
 [node name="Level1" type="Node3D"]
+
+[node name="Environment" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.0186, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_n0fxu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 0.22541, 0.974264, 0, -0.974264, 0.22541, 0, 0, 0)
+light_color = Color(0.537255, 0.419608, 0.184314, 1)
+shadow_enabled = true
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.788634, 0.138596, 0.599039, -0.614864, 0.177766, 0.768337, 2.0589e-09, -0.974264, 0.22541, 0, 0, 0)
+light_color = Color(0.403922, 0.443137, 0.262745, 1)
+shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_a3wbu")]
 
@@ -49,6 +65,7 @@ is_start_of_level = true
 [node name="Gate" parent="Room1/Room1Items" instance=ExtResource("6_ef7ok")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
 has_door = true
+close_when_passed = true
 
 [node name="PressurePlate" parent="Room1/Room1Items" instance=ExtResource("7_jqpn0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11)
@@ -248,7 +265,7 @@ next_level = "res://Levels/Demo/level_2.tscn"
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000185132, 6, -16.0001)
 mesh = SubResource("PlaneMesh_rvnpg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
@@ -265,19 +282,18 @@ mesh = SubResource("PlaneMesh_jgnlo")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.0074, -16.0811)
 shape = SubResource("ConvexPolygonShape3D_ix5lu")
 
-[node name="Environment" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.0186, 0, 0)
+[node name="Wall" parent="." instance=ExtResource("4_uccbi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2, -27)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
-environment = SubResource("Environment_fx6bs")
+[node name="Wall2" parent="." instance=ExtResource("4_uccbi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, -27)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 0.22541, 0.974264, 0, -0.974264, 0.22541, 0, 0, 0)
+[node name="Wall3" parent="." instance=ExtResource("4_uccbi")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 2, -28)
 
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(0.788634, 0.138596, 0.599039, -0.614864, 0.177766, 0.768337, 2.0589e-09, -0.974264, 0.22541, 0, 0, 0)
-light_color = Color(0.454902, 0.454902, 0.454902, 1)
-shadow_enabled = true
+[node name="Trigger" parent="." instance=ExtResource("9_43ovh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.258269, -22)
+message_on_trigger = "ESC - Restart"
 
 [connection signal="_state_changed" from="Room1/Room1Items/PressurePlate" to="Room1/Room1Items/Gate" method="_on_pressure_plate__state_changed"]
 [connection signal="_state_changed" from="Room2/Room2Items/PressurePlate" to="Room2/Room2Items/MovingPlatform" method="_on_pressure_plate__state_changed"]

@@ -9,15 +9,15 @@ var pressed = false
 var pressed_last_frame = false
 @onready var button = $ButtonMesh
 
-func _on_area_3d_body_entered(_body):
-	#print("Pressed")
-	coliders += 1
-	_on_state_changed()
+func _on_area_3d_body_entered(body):
+	if body is RigidBody3D or body is CharacterBody3D:
+		coliders += 1
+		_on_state_changed()
 
-func _on_area_3d_body_exited(_body):
-	#print("Deressed")
-	coliders -= 1
-	_on_state_changed()
+func _on_area_3d_body_exited(body):
+	if body is RigidBody3D or body is CharacterBody3D:
+		coliders -= 1
+		_on_state_changed()
 
 func _physics_process(delta):
 	

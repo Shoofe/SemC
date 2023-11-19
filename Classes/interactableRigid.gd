@@ -72,6 +72,7 @@ func _physics_process(_delta):
 		#And if it is zero after this, and we're playing, we must start recording, as me moved into the other state (2)
 		#And we must release the control over the object to the psysics
 		else:
+			linear_velocity = Vector3(0.1,0.1,0.1)
 			Global.setState(Global.State.IDLE)
 		
 	

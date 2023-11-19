@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dgblbhcvh40tm"]
+[gd_scene load_steps=9 format=3 uid="uid://dgblbhcvh40tm"]
 
 [ext_resource type="Script" path="res://Rooms/LevelTransitionRoom/level_transition_room.gd" id="1_4muug"]
 [ext_resource type="PackedScene" uid="uid://8ssu60f71hgq" path="res://Geometry/Walls/Door/Gate.tscn" id="2_55nex"]
@@ -10,6 +10,10 @@ size = Vector2(10, 12)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7m1yg"]
 points = PackedVector3Array(5, 0, 6, -5, 0, 6, 5, 0, -6, -5, 0, -6)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_v0htm"]
+flip_faces = true
+size = Vector2(10, 12)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hn14u"]
 size = Vector3(10, 3, 1)
@@ -24,6 +28,7 @@ has_door = true
 [node name="Gate2" parent="." instance=ExtResource("2_55nex")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
 has_door = true
+close_when_passed = true
 
 [node name="Geometry" type="Node3D" parent="."]
 
@@ -71,6 +76,10 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5, 0,
 [node name="WallTriple4" parent="Geometry" instance=ExtResource("4_mo14b")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5, 0, 3)
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+mesh = SubResource("PlaneMesh_v0htm")
+
 [node name="LevelLoadTrigger" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 2)
 
@@ -80,6 +89,12 @@ shape = SubResource("BoxShape3D_hn14u")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.50107, 0)
+light_energy = 3.88
+omni_range = 40.0
+omni_attenuation = 0.812253
 
 [connection signal="body_entered" from="LevelLoadTrigger" to="." method="_on_level_load_trigger_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

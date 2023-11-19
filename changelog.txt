@@ -52,3 +52,11 @@ Created a test level, but the process of creating levels is torture. TODO: Rewor
 11.18.23
 Added level transition logic
 Redone walls, should be much easier to design levels now.
+
+11.19.23.
+Designed two levels with not that much hastle. 4 puzzles total!
+
+11.19.23.
+Designed two more levels.
+8 puzzles total!
+Added cube spawners.

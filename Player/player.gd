@@ -124,7 +124,13 @@ func _input(event):
 		rotation.y -= event.relative.x * mouse_sensitivity / MOUSE_SENS_CONST
 		head.rotation.x -= event.relative.y * mouse_sensitivity / MOUSE_SENS_CONST
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-90), deg_to_rad(90))
-
+	
+	if Input.is_action_just_pressed("ESCAPE"):
+		get_tree().reload_current_scene()
+	
+	
+	
+	
 func handle_interactions():
 	#Interaction starts with M1
 	if Input.is_action_just_pressed("MOUSE1"):

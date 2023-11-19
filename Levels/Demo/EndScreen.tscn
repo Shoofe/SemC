@@ -18,9 +18,10 @@ theme_override_font_sizes/font_size = 53
 text = "YOU DEED IT"
 
 [node name="Label2" type="Label" parent="."]
-offset_left = 535.0
-offset_top = 752.0
-offset_right = 1120.0
-offset_bottom = 1032.0
+layout_mode = 0
+offset_left = 721.0
+offset_top = 359.0
+offset_right = 1306.0
+offset_bottom = 639.0
 theme_override_font_sizes/font_size = 24
-text = "da, ovo  zadnje je bio samo test level lmaoa"
+text = ":3"

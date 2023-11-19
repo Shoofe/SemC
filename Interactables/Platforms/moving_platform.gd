@@ -27,5 +27,11 @@ func _on_pressure_plate_2__state_changed(state):
 func _on_pressure_plate_3__state_changed(state):
 	activate(state)
 
+func _on_pressure_plate_4__state_changed(state):
+	activate(state)
 
+func _on_pressure_plate_5__state_changed(state):
+	activate(state)
 
+func _on_pressure_plate_6__state_changed(state):
+	activate(state)

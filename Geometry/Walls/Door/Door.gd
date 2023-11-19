@@ -7,7 +7,6 @@ var close_when_passed = false
 var start_open = false
 
 func _physics_process(delta):
-
 	if opened:
 		self.transform.origin = self.transform.origin.lerp(state_opened, 1 * delta)
 	else:

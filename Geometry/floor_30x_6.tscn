@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1ok4vw1feqyi"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_30fcq"]
+size = Vector2(30, 6)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_plt6k"]
+points = PackedVector3Array(-15, 0, -3, -15, 0, 3, 15, 0, -3, 15, 0, 3)
+
+[node name="Floor30x3" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_30fcq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_plt6k")

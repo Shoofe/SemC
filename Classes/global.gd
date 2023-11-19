@@ -19,7 +19,7 @@ var state = State.IDLE
 var player_relative_postion: Vector3 = Vector3.ZERO
 var player_relative_rotation: Vector3 = Vector3.ZERO
 
-var state_available = [false,false,false,false,false]
+var state_available = [false,true,false,true,false]
 var hud_visible = false
 
 
