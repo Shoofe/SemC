@@ -9,6 +9,7 @@ extends Area3D
 @export var disable_on_trigger: Global.State
 @export var disable: bool
 
+@export var enable_all_states = false
 
 var triggered = false
 func _on_body_entered(body):
@@ -22,6 +23,8 @@ func _on_body_entered(body):
 		
 		if enable:
 			Global.enableState(enable_on_trigger)
-
+	
+		if enable_all_states:
+			Global.enableAll()
 func _on_body_exited(_body):
 	pass # Replace with function body.

@@ -93,8 +93,8 @@ has_door = true
 is_start_of_level = true
 
 [node name="LevelTransitionRoom2" parent="." instance=ExtResource("9_3fje6")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15.4134, 0, -15.7677)
-next_level = "res://Levels/Demo/EndScreen.tscn"
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, -0.5866, 0, -40.7677)
+next_level = "res://Levels/DebugLevels/debug_level.tscn"
 
 [node name="CubeSpawner" parent="." instance=ExtResource("10_843qf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 6, -22)

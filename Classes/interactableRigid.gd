@@ -28,10 +28,13 @@ var max_array_size = Global.max_array_size
 var is_held = false
 var flushed = false
 
+var last_state = Global.State.IDLE
+var on_freeze_velocity = Vector3.ZERO
 
 func _ready():
 	freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
 	Global.setMaxArraySize(max_array_size)
+	Global.setState(Global.State.IDLE)
 
 
 func _physics_process(_delta):
@@ -59,9 +62,13 @@ func _physics_process(_delta):
 		#We now are sure we have space in the array and we save the current state of the obj
 		recorded_values["position"].append(global_position)
 		recorded_values["rotation"].append(global_rotation)
-		recorded_values["velocity"].append(linear_velocity)
-
-
+	
+	#if we freeze this frame or start rewinding and we were not rewinding, we save the current velocity and then add it at the end of "play" or "unfreeze" if we're at the last frame
+	if Global.frame_offset == 0 and (last_state != Global.State.FROZEN and Global.state == Global.State.FROZEN) or (last_state == Global.State.IDLE and Global.state == Global.State.REWINDING):
+		on_freeze_velocity = linear_velocity
+	if last_state == Global.State.FROZEN and Global.state == Global.State.IDLE:
+		linear_velocity = on_freeze_velocity
+	
 	if Global.state == Global.State.PLAYING:
 		#If we're playing we have two cases: (1)We have some states already recorded and we play back those states.
 		#                                 or (2)We are recording new movement
@@ -72,7 +79,7 @@ func _physics_process(_delta):
 		#And if it is zero after this, and we're playing, we must start recording, as me moved into the other state (2)
 		#And we must release the control over the object to the psysics
 		else:
-			linear_velocity = Vector3(0.1,0.1,0.1)
+			linear_velocity = on_freeze_velocity
 			Global.setState(Global.State.IDLE)
 		
 	
@@ -98,12 +105,15 @@ func _physics_process(_delta):
 		freeze = true
 		global_position = recorded_values["position"][Global.max_array_size - Global.frame_offset - 1]
 		global_rotation = recorded_values["rotation"][Global.max_array_size - Global.frame_offset - 1]
-		linear_velocity = recorded_values["velocity"][Global.max_array_size - Global.frame_offset - 1]
 	else:
 		freeze = false
 	if Global.state == Global.State.FROZEN:
 		linear_velocity = Vector3.ZERO
 	is_held = false
+	
+	
+	last_state = Global.state
+
 
 func held(hand_position : Vector3):
 	freeze = true

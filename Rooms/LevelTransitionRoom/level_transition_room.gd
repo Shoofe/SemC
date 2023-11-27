@@ -28,4 +28,5 @@ func _on_level_load_trigger_body_entered(body):
 func _on_timer_timeout():
 	Global.player_relative_postion = player.global_position - self.global_position
 	Global.player_relative_rotation = player.global_rotation - self.global_rotation
+	Global.player_head_position = player.head.rotation
 	get_tree().change_scene_to_file(next_level)

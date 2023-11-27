@@ -18,6 +18,7 @@ var state = State.IDLE
 #A variable that keeps player position relative to the level-transition room.
 var player_relative_postion: Vector3 = Vector3.ZERO
 var player_relative_rotation: Vector3 = Vector3.ZERO
+var player_head_position: Vector3 = Vector3.ZERO
 
 var state_available = [false,true,false,true,false]
 var hud_visible = false
@@ -53,7 +54,8 @@ func disableState(st: State):
 
 
 func enableAll():
-	#Enable all states (DEBUG)
+	print("Enabled all")
+	hud_visible = true
 	for x in range(State.size()):
 		state_available[x] = true
 

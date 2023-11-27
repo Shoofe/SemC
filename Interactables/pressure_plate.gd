@@ -34,5 +34,6 @@ func _physics_process(delta):
 
 func _on_state_changed():
 	pressed = coliders > 0
-	emit_signal("_state_changed", coliders > 0)
+	if pressed != pressed_last_frame:
+		emit_signal("_state_changed", coliders > 0)
 	

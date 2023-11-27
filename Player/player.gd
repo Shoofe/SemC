@@ -46,6 +46,7 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	global_position = Global.player_relative_postion
 	global_rotation = Global.player_relative_rotation
+	head.rotation = Global.player_head_position
 
 
 func _physics_process(delta):
@@ -106,7 +107,7 @@ func _input(event):
 			if current_target != null:
 				stop_interaction()
 	#Throw on MOUSE2.
-	if Input.is_action_just_pressed("MOUSE2") and hold_item:
+	if Input.is_action_just_pressed("MOUSE2") and hold_item and current_target != null:
 		current_target.stop_interaction()
 		current_target.apply_impulse((hand.global_position - camera.global_position).normalized() * throw_strength)
 		hold_item = false

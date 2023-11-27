@@ -20,4 +20,11 @@ func _on_pressure_plate__state_changed(state):
 		spawn()
 
 
+func _on_pressure_plate_4__state_changed(state):
+	if state:
+		spawn()
 
+
+func _on_pressure_plate_2__state_changed(state):
+	if state:
+		spawn()

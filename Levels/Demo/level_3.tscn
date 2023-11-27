@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://bjytm8iv2dhk8"]
+[gd_scene load_steps=17 format=3 uid="uid://bjytm8iv2dhk8"]
 
 [ext_resource type="PackedScene" uid="uid://dgblbhcvh40tm" path="res://Rooms/LevelTransitionRoom/level_transition_room.tscn" id="1_gb53h"]
 [ext_resource type="PackedScene" uid="uid://do34rfdceqm35" path="res://Geometry/Walls/wall_triple.tscn" id="2_m42au"]
 [ext_resource type="PackedScene" uid="uid://cxk35xegig07d" path="res://Geometry/floor30x30.tscn" id="3_2lrku"]
+[ext_resource type="PackedScene" uid="uid://dk7tutrdykhwf" path="res://Enviroments/environment_demo_first.tscn" id="3_cpxju"]
 [ext_resource type="PackedScene" uid="uid://i6ex30grw0hx" path="res://Player/player.tscn" id="4_mu75p"]
 [ext_resource type="PackedScene" uid="uid://dp56fnqe7epir" path="res://Geometry/Walls/wall.tscn" id="4_s8rph"]
 [ext_resource type="PackedScene" uid="uid://ced5pa85yno3j" path="res://Interactables/item.tscn" id="6_kg8ym"]
@@ -13,15 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://b1ok4vw1feqyi" path="res://Geometry/floor_30x_6.tscn" id="11_6e7q3"]
 [ext_resource type="PackedScene" uid="uid://8ssu60f71hgq" path="res://Geometry/Walls/Door/Gate.tscn" id="11_kiju4"]
 [ext_resource type="PackedScene" uid="uid://dh554qv1koi3f" path="res://Interactables/cube_spawner.tscn" id="13_vta55"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l0k6y"]
-
-[sub_resource type="Sky" id="Sky_t435d"]
-sky_material = SubResource("ProceduralSkyMaterial_l0k6y")
-
-[sub_resource type="Environment" id="Environment_fbg5l"]
-background_mode = 2
-sky = SubResource("Sky_t435d")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_30fcq"]
 size = Vector2(30, 6)
@@ -37,21 +29,7 @@ is_start_of_level = true
 [node name="Player" parent="." instance=ExtResource("4_mu75p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0433626, 0, -0.0301909)
 
-[node name="Environment" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.0186, 0, 0)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
-environment = SubResource("Environment_fbg5l")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 0.22541, 0.974264, 0, -0.974264, 0.22541, 0, 0, 0)
-light_color = Color(0.537255, 0.419608, 0.184314, 1)
-shadow_enabled = true
-
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(0.788634, 0.138596, 0.599039, -0.614864, 0.177766, 0.768337, 2.0589e-09, -0.974264, 0.22541, 0, 0, 0)
-light_color = Color(0.403922, 0.443137, 0.262745, 1)
-shadow_enabled = true
+[node name="Environment" parent="." instance=ExtResource("3_cpxju")]
 
 [node name="Room1" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -21)
@@ -450,7 +428,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, -6, 6)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 0)
 
 [node name="CubeSpawner" parent="Room2" instance=ExtResource("13_vta55")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 6, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 5, 4)
 
 [node name="MovingPlatform" parent="Room2" instance=ExtResource("8_i77tr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -6, -6)

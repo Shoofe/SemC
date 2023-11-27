@@ -1,0 +1,184 @@
+[gd_scene load_steps=13 format=3 uid="uid://7m6dck0lovla"]
+
+[ext_resource type="PackedScene" uid="uid://dgblbhcvh40tm" path="res://Rooms/LevelTransitionRoom/level_transition_room.tscn" id="1_i5rpq"]
+[ext_resource type="PackedScene" uid="uid://dqq0r4fvehs6x" path="res://Interactables/Triggers/Trigger.tscn" id="2_o6o17"]
+[ext_resource type="PackedScene" uid="uid://i6ex30grw0hx" path="res://Player/player.tscn" id="2_v1p6x"]
+[ext_resource type="PackedScene" uid="uid://dk7tutrdykhwf" path="res://Enviroments/environment_demo_first.tscn" id="2_ywbgj"]
+[ext_resource type="PackedScene" uid="uid://cxk35xegig07d" path="res://Geometry/floor30x30.tscn" id="4_nfmdl"]
+[ext_resource type="PackedScene" uid="uid://do34rfdceqm35" path="res://Geometry/Walls/wall_triple.tscn" id="5_btf6i"]
+[ext_resource type="PackedScene" uid="uid://ced5pa85yno3j" path="res://Interactables/item.tscn" id="5_iohep"]
+[ext_resource type="PackedScene" uid="uid://dp56fnqe7epir" path="res://Geometry/Walls/wall.tscn" id="7_1uhbf"]
+[ext_resource type="PackedScene" uid="uid://8ssu60f71hgq" path="res://Geometry/Walls/Door/Gate.tscn" id="8_avtd3"]
+[ext_resource type="PackedScene" uid="uid://c64jcf0ymuq23" path="res://Interactables/pressure_plate.tscn" id="9_rdufw"]
+[ext_resource type="PackedScene" uid="uid://b1ok4vw1feqyi" path="res://Geometry/floor_30x_6.tscn" id="11_maf2r"]
+[ext_resource type="PackedScene" uid="uid://dh554qv1koi3f" path="res://Interactables/cube_spawner.tscn" id="12_ni047"]
+
+[node name="Level4" type="Node3D"]
+
+[node name="LevelTransitionRoom" parent="." instance=ExtResource("1_i5rpq")]
+is_start_of_level = true
+
+[node name="Environment" parent="." instance=ExtResource("2_ywbgj")]
+
+[node name="Player" parent="." instance=ExtResource("2_v1p6x")]
+
+[node name="Trigger" parent="." instance=ExtResource("2_o6o17")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -9)
+message_on_trigger = "R - Rewind  G - Discard tape"
+enable_all_states = true
+
+[node name="Room1" type="Node3D" parent="."]
+
+[node name="Room1Geometry" type="Node3D" parent="Room1"]
+
+[node name="Room2" type="Node3D" parent="Room1/Room1Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -21)
+
+[node name="WallTriple" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 15)
+
+[node name="WallTriple2" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 15)
+
+[node name="WallTriple3" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15, 0, 12)
+
+[node name="WallTriple4" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15, 0, 6)
+
+[node name="WallTriple5" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15, 0, 0)
+
+[node name="WallTriple6" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15, 0, -6)
+
+[node name="WallTriple7" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15, 0, -12)
+
+[node name="WallTriple8" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15, 0, 12)
+
+[node name="WallTriple9" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15, 0, 6)
+
+[node name="WallTriple10" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15, 0, 0)
+
+[node name="WallTriple11" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15, 0, -6)
+
+[node name="WallTriple12" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -15, 0, -12)
+
+[node name="Floor10x10" parent="Room1/Room1Geometry/Room2" instance=ExtResource("4_nfmdl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+
+[node name="WallTriple13" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -3)
+
+[node name="WallTriple14" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -3)
+
+[node name="WallTriple15" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -3)
+
+[node name="WallTriple16" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+
+[node name="WallTriple17" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -3)
+
+[node name="WallTriple18" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 15)
+
+[node name="WallTriple20" parent="Room1/Room1Geometry/Room2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 15)
+
+[node name="Wall5" parent="Room1/Room1Geometry" instance=ExtResource("7_1uhbf")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 0, -7)
+
+[node name="InsectDoor" type="Node3D" parent="Room1/Room1Geometry"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6, 0, -11)
+
+[node name="Wall" parent="Room1/Room1Geometry/InsectDoor" instance=ExtResource("7_1uhbf")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 2, 0, 3)
+
+[node name="WallTriple12" parent="Room1/Room1Geometry/InsectDoor" instance=ExtResource("5_btf6i")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3, 0, 0)
+
+[node name="WallTriple13" parent="Room1/Room1Geometry/InsectDoor" instance=ExtResource("5_btf6i")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 0, 0)
+
+[node name="Wall2" parent="Room1/Room1Geometry/InsectDoor" instance=ExtResource("7_1uhbf")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2, 0, 3)
+
+[node name="Wall3" parent="Room1/Room1Geometry/InsectDoor" instance=ExtResource("7_1uhbf")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 2, 0, -3)
+
+[node name="Wall4" parent="Room1/Room1Geometry/InsectDoor" instance=ExtResource("7_1uhbf")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2, 0, -3)
+
+[node name="WallTriple" parent="Room1/Room1Geometry" instance=ExtResource("5_btf6i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -3, -14)
+
+[node name="Floor30x3" parent="Room1/Room1Geometry" instance=ExtResource("11_maf2r")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12, 0, -29)
+
+[node name="Floor30x4" parent="Room1/Room1Geometry" instance=ExtResource("11_maf2r")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8, 0, 1)
+
+[node name="Wall" parent="Room1/Room1Geometry" instance=ExtResource("7_1uhbf")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 11, -6, -7)
+
+[node name="WallTriple" parent="Room1/Room1Geometry/Wall" instance=ExtResource("5_btf6i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 9.53674e-07)
+
+[node name="Wall3" parent="Room1/Room1Geometry" instance=ExtResource("7_1uhbf")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 14, -6, -6)
+
+[node name="Wall2" parent="Room1/Room1Geometry" instance=ExtResource("7_1uhbf")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15, -6, -7)
+
+[node name="WallTriple" parent="Room1/Room1Geometry/Wall2" instance=ExtResource("5_btf6i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 9.53674e-07)
+
+[node name="Wall4" parent="Room1/Room1Geometry" instance=ExtResource("7_1uhbf")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 12, -6, -6)
+
+[node name="Wall6" parent="Room1/Room1Geometry" instance=ExtResource("7_1uhbf")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 14, -6, -14)
+
+[node name="Wall7" parent="Room1/Room1Geometry" instance=ExtResource("7_1uhbf")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 12, -6, -14)
+
+[node name="Floor30x5" parent="Room1/Room1Geometry" instance=ExtResource("11_maf2r")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12, -6, -21)
+
+[node name="Item2" parent="Room1" instance=ExtResource("5_iohep")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.274878, 1.58201, -12.4368)
+
+[node name="PressurePlate2" parent="Room1" instance=ExtResource("9_rdufw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -7)
+
+[node name="PressurePlate" parent="Room1" instance=ExtResource("9_rdufw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11)
+
+[node name="Gate" parent="Room1" instance=ExtResource("8_avtd3")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9, 0, -11)
+has_door = true
+starts_open = true
+
+[node name="Gate2" parent="Room1" instance=ExtResource("8_avtd3")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 0, -11)
+has_door = true
+
+[node name="CubeSpawner" parent="Room1" instance=ExtResource("12_ni047")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 5, -13)
+
+[node name="Trigger2" parent="Room1" instance=ExtResource("2_o6o17")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1018, 9.53674e-07, -11.1606)
+message_on_trigger = "When you pick up an item the record is erased"
+
+[connection signal="_state_changed" from="Room1/PressurePlate2" to="Room1/CubeSpawner" method="_on_pressure_plate_2__state_changed"]
+[connection signal="_state_changed" from="Room1/PressurePlate" to="Room1/Gate" method="_on_pressure_plate__state_changed"]
+[connection signal="_state_changed" from="Room1/PressurePlate" to="Room1/Gate2" method="_on_pressure_plate__state_changed"]
