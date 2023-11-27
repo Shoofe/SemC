@@ -440,6 +440,9 @@ mesh = SubResource("PlaneMesh_30fcq")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Room2/Room2Geometry/Floor30x4"]
 shape = SubResource("ConvexPolygonShape3D_plt6k")
 
+[node name="Floor10x11" parent="Room2/Room2Geometry" instance=ExtResource("3_2lrku")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 6, 0)
+
 [node name="PressurePlate" parent="Room2" instance=ExtResource("9_4nwmu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, -6, 6)
 
@@ -478,6 +481,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -6, -10)
 move_speed = 0.7
 move_destination_relative = Vector3(0, 6, 0)
 
+[node name="Floor10x10" parent="Room2" instance=ExtResource("3_2lrku")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 6, 30)
+
 [node name="LevelTransitionRoom2" parent="." instance=ExtResource("1_gb53h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 6, -72)
 next_level = "res://Levels/Demo/EndScreen.tscn"
@@ -489,7 +495,7 @@ next_level = "res://Levels/Demo/EndScreen.tscn"
 [connection signal="_state_changed" from="Room2/PressurePlate" to="Room2/CubeSpawner" method="_on_pressure_plate__state_changed"]
 [connection signal="_state_changed" from="Room2/PressurePlate2" to="Room2/MovingPlatform" method="_on_pressure_plate_2__state_changed"]
 [connection signal="_state_changed" from="Room2/PressurePlate2" to="Room2/MovingPlatform2" method="_on_pressure_plate_2__state_changed"]
-[connection signal="_state_changed" from="Room2/PressurePlate2" to="Room2/MovingPlatform3" method="_on_pressure_plate_2__state_changed"]
 [connection signal="_state_changed" from="Room2/PressurePlate2" to="Room2/MovingPlatform4" method="_on_pressure_plate_2__state_changed"]
 [connection signal="_state_changed" from="Room2/PressurePlate2" to="Room2/MovingPlatform5" method="_on_pressure_plate_2__state_changed"]
 [connection signal="_state_changed" from="Room2/PressurePlate2" to="Room2/MovingPlatform6" method="_on_pressure_plate_2__state_changed"]
+[connection signal="_state_changed" from="Room2/PressurePlate2" to="Room2/MovingPlatform3" method="_on_pressure_plate_2__state_changed"]
